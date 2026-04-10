@@ -26,24 +26,37 @@ class UserRegistrationForm(forms.Form):
     required_css_class = 'required'
     errorlist_css_class = 'errorlist'
     username = forms.CharField(max_length=32, help_text='''Letters, digits,
-                               period and underscore only.''')
-    email = forms.EmailField()
-    password = forms.CharField(max_length=32, widget=forms.PasswordInput())
-    confirm_password = forms.CharField(max_length=32, widget=forms.PasswordInput())
-    title = forms.ChoiceField(choices=title)
-    first_name = forms.CharField(max_length=32)
-    last_name = forms.CharField(max_length=32)
+                               period and underscore only.''',
+                               widget=forms.TextInput(attrs={'class': 'pg-input', 'placeholder': 'Choose a username'}))
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'class': 'pg-input', 'placeholder': 'you@institute.edu'}))
+    password = forms.CharField(max_length=32,
+        widget=forms.PasswordInput(attrs={'class': 'pg-input', 'placeholder': 'Create a password'}))
+    confirm_password = forms.CharField(max_length=32,
+        widget=forms.PasswordInput(attrs={'class': 'pg-input', 'placeholder': 'Re-enter password'}))
+    title = forms.ChoiceField(choices=title,
+        widget=forms.Select(attrs={'class': 'pg-input'}))
+    first_name = forms.CharField(max_length=32,
+        widget=forms.TextInput(attrs={'class': 'pg-input', 'placeholder': 'First name'}))
+    last_name = forms.CharField(max_length=32,
+        widget=forms.TextInput(attrs={'class': 'pg-input', 'placeholder': 'Last name'}))
     phone_number = forms.RegexField(regex=r'^.{10}$',
                                     error_messages={'invalid': "Phone number must be entered \
                                                   in the format: '9999999999'.\
-                                                 Up to 10 digits allowed."})
+                                                 Up to 10 digits allowed."},
+                                    widget=forms.TextInput(attrs={'class': 'pg-input', 'placeholder': '9876543210'}))
     institute = forms.CharField(max_length=128,
-                                help_text='Please write full name of your Institute/Organization')
+                                help_text='Please write full name of your Institute/Organization',
+                                widget=forms.TextInput(attrs={'class': 'pg-input', 'placeholder': 'e.g. Indian Institute of Technology Bombay'}))
     department = forms.ChoiceField(help_text='Department you work/study',
-                                   choices=department_choices)
-    location = forms.CharField(max_length=255, help_text="Place/City")
-    state = forms.ChoiceField(choices=states)
-    how_did_you_hear_about_us = forms.ChoiceField(choices=source)
+                                   choices=department_choices,
+                                   widget=forms.Select(attrs={'class': 'pg-input'}))
+    location = forms.CharField(max_length=255, help_text="Place/City",
+                               widget=forms.TextInput(attrs={'class': 'pg-input', 'placeholder': 'e.g. Mumbai'}))
+    state = forms.ChoiceField(choices=states,
+                              widget=forms.Select(attrs={'class': 'pg-input'}))
+    how_did_you_hear_about_us = forms.ChoiceField(choices=source,
+                                                  widget=forms.Select(attrs={'class': 'pg-input'}))
 
     def clean_username(self):
         u_name = self.cleaned_data["username"]
@@ -107,10 +120,10 @@ class UserLoginForm(forms.Form):
     """Creates a form which will allow the user to log into the system."""
 
     username = forms.CharField(max_length=32,
-                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+                               widget=forms.TextInput(attrs={'class': 'pg-input', 'placeholder': 'Enter your username'}))
 
     password = forms.CharField(max_length=32,
-                               widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+                               widget=forms.PasswordInput(attrs={'class': 'pg-input', 'placeholder': 'Enter your password'}))
 
     def clean(self):
         super(UserLoginForm, self).clean()

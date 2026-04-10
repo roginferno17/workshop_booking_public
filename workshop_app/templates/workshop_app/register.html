@@ -1,35 +1,328 @@
-{% extends 'workshop_app/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account — FOSSEE Workshops</title>
+    <meta name="description" content="Register as a coordinator to propose and manage free FOSS workshops from IIT Bombay.">
 
-	{% block title %}
-		Register
-	{% endblock %}
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="{% static 'workshop_app/css/design-tokens.css' %}">
+    <link rel="stylesheet" href="{% static 'workshop_app/css/playful-geometric.css' %}">
+    <link rel="stylesheet" href="{% static 'workshop_app/css/signup.css' %}">
+</head>
+<body>
 
-{% block content %}
+<div class="signup-page">
 
-	<style type="text/css">
-    	label.required::after {
-    	content: "*";
-    	color: red;
-		}
+    <!-- ═══════════════════════════════════════════
+         LEFT PANEL — Branding
+         ═══════════════════════════════════════════ -->
+    <div class="signup-panel">
+        <!-- Decorative shapes -->
+        <div class="signup-panel__shape signup-panel__shape--1"></div>
+        <div class="signup-panel__shape signup-panel__shape--2"></div>
+        <div class="signup-panel__shape signup-panel__shape--3"></div>
+        <div class="signup-panel__shape signup-panel__shape--4"></div>
+        <div class="signup-panel__dots"></div>
 
-		.errorlist {
-      color: red;
+        <div class="signup-panel__content">
+            <a href="/" class="signup-panel__logo">
+                <span class="signup-panel__logo-dot"></span>
+                FOSSEE Workshops
+            </a>
+
+            <h2>Start your <span style="color: var(--tertiary);">FOSS journey</span> today.</h2>
+            <p>Join thousands of coordinators and educators who bring free, expert-led workshops to campuses across India.</p>
+
+            <ul class="signup-panel__checklist">
+                <li class="signup-panel__check">
+                    <span class="signup-panel__check-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    100% free — no hidden charges
+                </li>
+                <li class="signup-panel__check">
+                    <span class="signup-panel__check-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    IIT Bombay certified instructors
+                </li>
+                <li class="signup-panel__check">
+                    <span class="signup-panel__check-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    Propose workshops in under 5 minutes
+                </li>
+                <li class="signup-panel__check">
+                    <span class="signup-panel__check-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </span>
+                    Python, Scilab, OpenFOAM & more
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════
+         RIGHT PANEL — Registration Form
+         ═══════════════════════════════════════════ -->
+    <div class="signup-form-panel">
+        <div class="signup-form-wrap">
+
+            <!-- Back to home -->
+            <a href="/" class="signup-back">
+                <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Home
+            </a>
+
+            <!-- Header -->
+            <div class="signup-form__header">
+                <h1>Create <span class="text-accent">Account</span></h1>
+                <p>Fill in your details to register as a workshop coordinator.</p>
+            </div>
+
+            <!-- Step progress -->
+            <div class="signup-steps" aria-label="Registration steps">
+                <div class="signup-step signup-step--active">
+                    <span class="signup-step__num">1</span>
+                    <span class="signup-step__label">Account</span>
+                </div>
+                <div class="signup-step__connector"></div>
+                <div class="signup-step">
+                    <span class="signup-step__num">2</span>
+                    <span class="signup-step__label">Personal</span>
+                </div>
+                <div class="signup-step__connector"></div>
+                <div class="signup-step">
+                    <span class="signup-step__num">3</span>
+                    <span class="signup-step__label">Institution</span>
+                </div>
+            </div>
+
+            <form action="" method="post" id="signup-form">
+                {% csrf_token %}
+
+                <!-- Global error banner -->
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="signup-alert">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            {{ error|escape }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- ─── Section 1: Account Details ─── -->
+                <div class="signup-card" id="step-1">
+                    <div class="signup-card__section-title">
+                        <span class="signup-card__section-icon" style="background: var(--accent);">
+                            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </span>
+                        Account Details
+                    </div>
+
+                    <div class="signup-field">
+                        <label for="id_username" class="required">Username</label>
+                        {{ form.username }}
+                        {% if form.username.help_text %}
+                            <span class="help-text">{{ form.username.help_text }}</span>
+                        {% endif %}
+                        {% for error in form.username.errors %}
+                            <ul class="errorlist"><li>{{ error }}</li></ul>
+                        {% endfor %}
+                    </div>
+
+                    <div class="signup-field">
+                        <label for="id_email" class="required">Email Address</label>
+                        {{ form.email }}
+                        {% for error in form.email.errors %}
+                            <ul class="errorlist"><li>{{ error }}</li></ul>
+                        {% endfor %}
+                    </div>
+
+                    <div class="signup-row">
+                        <div class="signup-field">
+                            <label for="id_password" class="required">Password</label>
+                            {{ form.password }}
+                            {% for error in form.password.errors %}
+                                <ul class="errorlist"><li>{{ error }}</li></ul>
+                            {% endfor %}
+                        </div>
+                        <div class="signup-field">
+                            <label for="id_confirm_password" class="required">Confirm Password</label>
+                            {{ form.confirm_password }}
+                            {% for error in form.confirm_password.errors %}
+                                <ul class="errorlist"><li>{{ error }}</li></ul>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ─── Section 2: Personal Info ─── -->
+                <div class="signup-card" id="step-2">
+                    <div class="signup-card__section-title">
+                        <span class="signup-card__section-icon" style="background: var(--secondary);">
+                            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </span>
+                        Personal Information
+                    </div>
+
+                    <div class="signup-field" style="max-width: 200px;">
+                        <label for="id_title" class="required">Title</label>
+                        {{ form.title }}
+                        {% for error in form.title.errors %}
+                            <ul class="errorlist"><li>{{ error }}</li></ul>
+                        {% endfor %}
+                    </div>
+
+                    <div class="signup-row">
+                        <div class="signup-field">
+                            <label for="id_first_name" class="required">First Name</label>
+                            {{ form.first_name }}
+                            {% for error in form.first_name.errors %}
+                                <ul class="errorlist"><li>{{ error }}</li></ul>
+                            {% endfor %}
+                        </div>
+                        <div class="signup-field">
+                            <label for="id_last_name" class="required">Last Name</label>
+                            {{ form.last_name }}
+                            {% for error in form.last_name.errors %}
+                                <ul class="errorlist"><li>{{ error }}</li></ul>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="signup-field">
+                        <label for="id_phone_number" class="required">Phone Number</label>
+                        {{ form.phone_number }}
+                        {% for error in form.phone_number.errors %}
+                            <ul class="errorlist"><li>{{ error }}</li></ul>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- ─── Section 3: Institution Details ─── -->
+                <div class="signup-card" id="step-3">
+                    <div class="signup-card__section-title">
+                        <span class="signup-card__section-icon" style="background: var(--quaternary); border: var(--border-w) solid var(--fg);">
+                            <svg viewBox="0 0 24 24" stroke="var(--fg)"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        </span>
+                        Institution Details
+                    </div>
+
+                    <div class="signup-field">
+                        <label for="id_institute" class="required">Institute / Organization</label>
+                        {{ form.institute }}
+                        {% if form.institute.help_text %}
+                            <span class="help-text">{{ form.institute.help_text }}</span>
+                        {% endif %}
+                        {% for error in form.institute.errors %}
+                            <ul class="errorlist"><li>{{ error }}</li></ul>
+                        {% endfor %}
+                    </div>
+
+                    <div class="signup-row">
+                        <div class="signup-field">
+                            <label for="id_department" class="required">Department</label>
+                            {{ form.department }}
+                            {% if form.department.help_text %}
+                                <span class="help-text">{{ form.department.help_text }}</span>
+                            {% endif %}
+                            {% for error in form.department.errors %}
+                                <ul class="errorlist"><li>{{ error }}</li></ul>
+                            {% endfor %}
+                        </div>
+                        <div class="signup-field">
+                            <label for="id_state" class="required">State</label>
+                            {{ form.state }}
+                            {% for error in form.state.errors %}
+                                <ul class="errorlist"><li>{{ error }}</li></ul>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="signup-field">
+                        <label for="id_location" class="required">City / Location</label>
+                        {{ form.location }}
+                        {% for error in form.location.errors %}
+                            <ul class="errorlist"><li>{{ error }}</li></ul>
+                        {% endfor %}
+                    </div>
+
+                    <div class="signup-field">
+                        <label for="id_how_did_you_hear_about_us">How did you hear about us?</label>
+                        {{ form.how_did_you_hear_about_us }}
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn-candy signup-card__submit" id="signup-submit">
+                    Create My Account
+                    <span class="btn-arrow">
+                        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                </button>
+            </form>
+
+            <!-- Sign in link -->
+            <div class="signup-divider">
+                <span>Already have an account?</span>
+            </div>
+            <a href="{% url 'workshop_app:login' %}" class="btn-outline" style="width: 100%; justify-content: center;">
+                Sign In Instead
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Custom dropdown component -->
+<script src="{% static 'workshop_app/js/pg-dropdown.js' %}"></script>
+
+<!-- Step progress highlight on scroll -->
+<script>
+(function() {
+    const steps = document.querySelectorAll('.signup-step');
+    const connectors = document.querySelectorAll('.signup-step__connector');
+    const sections = [
+        document.getElementById('step-1'),
+        document.getElementById('step-2'),
+        document.getElementById('step-3')
+    ];
+
+    function updateSteps() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        let activeIndex = 0;
+
+        sections.forEach((section, i) => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.5) {
+                activeIndex = i;
+            }
+        });
+
+        steps.forEach((step, i) => {
+            step.classList.remove('signup-step--active', 'signup-step--done');
+            if (i < activeIndex) {
+                step.classList.add('signup-step--done');
+            } else if (i === activeIndex) {
+                step.classList.add('signup-step--active');
+            }
+        });
+
+        connectors.forEach((conn, i) => {
+            conn.classList.toggle('signup-step__connector--done', i < activeIndex);
+        });
     }
-	</style>
 
-	<div class="container" >
-		<br>
-		<h3>Coordinator Registration Form</h3>
-		<br>
-		<form action="" method="post">
-			{% csrf_token %}
-				<table class="table table-bordered">
-					{{ form.as_table }}
-				</table>
+    window.addEventListener('scroll', updateSteps);
+    updateSteps();
+})();
+</script>
 
-				<button class="btn btn-primary" type="submit">Register</button>
-		</form><br>
-		<!-- Activate when Instructor registeration starts -->
-		<br>
-	</div>
-{% endblock %}
+</body>
+</html>

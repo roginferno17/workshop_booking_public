@@ -25,6 +25,17 @@ target/
 
 #Database
 db.sqlite3
+*.sqlite3
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Virtual environments
+venv/
+.venv/
+env/
 
 #MAC OS specific
 .DS_Store
@@ -41,6 +52,15 @@ db.sqlite3
 \#*#
 #Vim
 *.swp
+
+# Test and coverage caches
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Python tooling caches
+.mypy_cache/
+.ruff_cache/
 
 #images/gif
 *.png

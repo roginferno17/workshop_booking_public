@@ -1,53 +1,167 @@
-{% extends 'workshop_app/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In — FOSSEE Workshops</title>
+    <meta name="description" content="Sign in to your FOSSEE Workshop account to propose, manage, and attend workshops.">
 
-{% block title %}
-    Login
-{% endblock %}
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="{% static 'workshop_app/css/design-tokens.css' %}">
+    <link rel="stylesheet" href="{% static 'workshop_app/css/playful-geometric.css' %}">
+    <link rel="stylesheet" href="{% static 'workshop_app/css/signin.css' %}">
+</head>
+<body>
 
-{% block content %}
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-md-offset-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form class="px-3 py-3" method="post">
-                        {% csrf_token %}
-                        {% if form.errors %}
-                            {% for field in form %}
-                                {% for error in field.errors %}
-                                    <div class="alert alert-dismissible alert-danger">
-                                        <button type="button" class="close" data-dismiss="alert">
-                                            <i class="fa fa-close"></i>
-                                        </button>
-                                        <strong>{{ error|escape }}</strong>
-                                    </div>
-                                {% endfor %}
-                            {% endfor %}
-                            {% for error in form.non_field_errors %}
-                                <div class="alert alert-dismissible alert-danger">
-                                    <button type="button" class="close" data-dismiss="alert">
-                                        <i class="fa fa-close"></i>
-                                    </button>
-                                    <strong>{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
-                        <div class="form-group">
-                          <label for="id_username">Username</label>
-                          {{ form.username }}
-                        </div>
-                        <div class="form-group">
-                          <label for="id_password">Password</label>
-                          {{ form.password }}
-                        </div>
-                        <button type="submit" class="btn btn-primary">Sign in</button>
-                        </form>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{% url 'workshop_app:register' %}">New around here? Sign up</a>
-                        <a class="dropdown-item" href="{% url 'password_reset' %}">Forgot password?</a>
-                    </div>
-                </div>  
+<div class="signin-page">
+
+    <!-- ═══════════════════════════════════════════
+         LEFT PANEL — Decorative / branding
+         ═══════════════════════════════════════════ -->
+    <div class="signin-panel">
+        <!-- Background shapes -->
+        <div class="signin-panel__shape signin-panel__shape--1"></div>
+        <div class="signin-panel__shape signin-panel__shape--2"></div>
+        <div class="signin-panel__shape signin-panel__shape--3"></div>
+        <div class="signin-panel__dots"></div>
+
+        <!-- Floating cards -->
+        <div class="signin-panel__float signin-panel__float--1">
+            <div class="signin-panel__float-icon" style="background: var(--accent);">
+                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="signin-panel__float-text">Workshop Confirmed</div>
+        </div>
+
+        <div class="signin-panel__float signin-panel__float--2">
+            <div class="signin-panel__float-icon" style="background: var(--secondary);">
+                <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div class="signin-panel__float-text">Python • 2 Days</div>
+        </div>
+
+        <!-- Content -->
+        <div class="signin-panel__content">
+            <a href="/" class="signin-panel__logo">
+                <span class="signin-panel__logo-dot"></span>
+                FOSSEE Workshops
+            </a>
+
+            <h2>Welcome back to <span style="color: var(--tertiary);">learning.</span></h2>
+            <p>Access your dashboard to manage workshops, track proposals, and connect with instructors from IIT Bombay.</p>
+
+            <div class="signin-panel__stats">
+                <div class="signin-panel__stat">
+                    <div class="signin-panel__stat-num">500+</div>
+                    <div class="signin-panel__stat-label">Workshops</div>
+                </div>
+                <div class="signin-panel__stat">
+                    <div class="signin-panel__stat-num">50K+</div>
+                    <div class="signin-panel__stat-label">Participants</div>
+                </div>
+                <div class="signin-panel__stat">
+                    <div class="signin-panel__stat-num">100%</div>
+                    <div class="signin-panel__stat-label">Free</div>
+                </div>
             </div>
         </div>
     </div>
-{% endblock %}
+
+
+    <!-- ═══════════════════════════════════════════
+         RIGHT PANEL — Sign In Form
+         ═══════════════════════════════════════════ -->
+    <div class="signin-form-panel">
+
+        <!-- Decorative shapes -->
+        <svg class="signin-form-deco signin-form-deco--triangle" width="36" height="36" viewBox="0 0 40 40" aria-hidden="true">
+            <polygon points="20,4 36,36 4,36" fill="var(--secondary)" stroke="var(--fg)" stroke-width="2" opacity="0.3"/>
+        </svg>
+        <div class="signin-form-deco signin-form-deco--circle" aria-hidden="true"></div>
+        <svg class="signin-form-deco signin-form-deco--plus" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="12" y1="4" x2="12" y2="20" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+            <line x1="4" y1="12" x2="20" y2="12" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+        </svg>
+
+        <div class="signin-form-wrap">
+            <!-- Back to home -->
+            <a href="/" class="signin-back">
+                <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Home
+            </a>
+
+            <!-- Header -->
+            <div class="signin-form__header">
+                <h1>Sign <span class="text-accent">In</span></h1>
+                <p>Enter your credentials to access your workshop dashboard.</p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="signin-card">
+                <form method="post" id="signin-form">
+                    {% csrf_token %}
+
+                    <!-- Error messages -->
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <div class="signin-alert">
+                                    <div class="signin-alert__icon">
+                                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                    </div>
+                                    <div class="signin-alert__text">{{ error|escape }}</div>
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <div class="signin-alert">
+                                <div class="signin-alert__icon">
+                                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                </div>
+                                <div class="signin-alert__text">{{ error|escape }}</div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <!-- Username -->
+                    <div class="signin-card__field">
+                        <label for="id_username">Username</label>
+                        {{ form.username }}
+                    </div>
+
+                    <!-- Password -->
+                    <div class="signin-card__field">
+                        <label for="id_password">Password</label>
+                        {{ form.password }}
+                    </div>
+
+                    <!-- Forgot password -->
+                    <a href="{% url 'password_reset' %}" class="signin-card__forgot">Forgot password?</a>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn-candy signin-card__submit" id="signin-submit">
+                        Sign In
+                        <span class="btn-arrow">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Divider -->
+            <div class="signin-divider">
+                <span>New to FOSSEE Workshops?</span>
+            </div>
+
+            <!-- Register link -->
+            <a href="{% url 'workshop_app:register' %}" class="btn-outline" style="width: 100%; justify-content: center;">
+                Create an Account
+            </a>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

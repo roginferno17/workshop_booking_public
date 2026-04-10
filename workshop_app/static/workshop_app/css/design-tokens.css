@@ -1,0 +1,99 @@
+/* =============================================================
+   PLAYFUL GEOMETRIC — Design Tokens
+   Single source of truth for the entire design system.
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* ── Colors ──────────────────────────────────── */
+  --bg:                #FFFDF5;
+  --fg:                #1E293B;
+  --muted:             #F1F5F9;
+  --muted-fg:          #64748B;
+  --accent:            #8B5CF6;
+  --accent-fg:         #FFFFFF;
+  --secondary:         #F472B6;
+  --tertiary:          #FBBF24;
+  --quaternary:        #34D399;
+  --border:            #E2E8F0;
+  --input-bg:          #FFFFFF;
+  --card-bg:           #FFFFFF;
+  --ring:              #8B5CF6;
+  --danger:            #EF4444;
+  --success:           #22C55E;
+
+  /* ── Typography ─────────────────────────────── */
+  --font-heading:      'Outfit', system-ui, sans-serif;
+  --font-body:         'Plus Jakarta Sans', system-ui, sans-serif;
+
+  /* Scale ratio 1.25 (Major Third) */
+  --text-xs:           0.64rem;    /* 10.24px */
+  --text-sm:           0.8rem;     /* 12.8px  */
+  --text-base:         1rem;       /* 16px    */
+  --text-md:           1.125rem;   /* 18px    */
+  --text-lg:           1.25rem;    /* 20px    */
+  --text-xl:           1.563rem;   /* 25px    */
+  --text-2xl:          1.953rem;   /* 31.25px */
+  --text-3xl:          2.441rem;   /* 39px    */
+  --text-4xl:          3.052rem;   /* 48.8px  */
+  --text-5xl:          3.815rem;   /* 61px    */
+  --text-6xl:          4.768rem;   /* 76.3px  */
+
+  /* ── Spacing ────────────────────────────────── */
+  --space-1:           0.25rem;
+  --space-2:           0.5rem;
+  --space-3:           0.75rem;
+  --space-4:           1rem;
+  --space-5:           1.25rem;
+  --space-6:           1.5rem;
+  --space-8:           2rem;
+  --space-10:          2.5rem;
+  --space-12:          3rem;
+  --space-16:          4rem;
+  --space-20:          5rem;
+  --space-24:          6rem;
+
+  /* ── Radius ─────────────────────────────────── */
+  --radius-sm:         8px;
+  --radius-md:         16px;
+  --radius-lg:         24px;
+  --radius-xl:         32px;
+  --radius-full:       9999px;
+
+  /* ── Border ─────────────────────────────────── */
+  --border-w:          2px;
+
+  /* ── Shadows (Hard / "Pop") ─────────────────── */
+  --shadow-pop:        4px 4px 0px 0px var(--fg);
+  --shadow-pop-hover:  6px 6px 0px 0px var(--fg);
+  --shadow-pop-active: 2px 2px 0px 0px var(--fg);
+  --shadow-card:       8px 8px 0px 0px var(--border);
+  --shadow-card-pink:  8px 8px 0px 0px var(--secondary);
+  --shadow-card-violet:8px 8px 0px 0px var(--accent);
+
+  /* ── Animation ──────────────────────────────── */
+  --ease-bounce:       cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth:       cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast:     150ms;
+  --duration-normal:   300ms;
+  --duration-slow:     500ms;
+
+  /* ── Layout ─────────────────────────────────── */
+  --container-max:     72rem;   /* 1152px */
+  --container-narrow:  48rem;   /* 768px  */
+}
+
+/* ── Reduced-Motion Safety ────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast:   0ms;
+    --duration-normal: 0ms;
+    --duration-slow:   0ms;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

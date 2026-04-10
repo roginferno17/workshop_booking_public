@@ -1,0 +1,596 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOSSEE Workshops — Free & Open Source Software for Education</title>
+    <meta name="description" content="Propose, schedule, and attend free FOSS workshops conducted by IIT Bombay instructors. Learn Python, Scilab, OpenFOAM, and more.">
+
+    <!-- Design System CSS -->
+    <link rel="stylesheet" href="{% static 'workshop_app/css/design-tokens.css' %}">
+    <link rel="stylesheet" href="{% static 'workshop_app/css/playful-geometric.css' %}">
+    <link rel="stylesheet" href="{% static 'workshop_app/css/landing.css' %}">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     NAVBAR
+     ═══════════════════════════════════════════════ -->
+<nav class="pg-nav" id="main-nav">
+    <div class="pg-container">
+        <div class="pg-nav__inner">
+            <a href="/" class="pg-nav__logo">
+                <span class="pg-nav__logo-dot"></span>
+                FOSSEE Workshops
+            </a>
+
+            <ul class="pg-nav__links" id="nav-links">
+                <li><a href="#features" class="pg-nav__link">Why FOSSEE</a></li>
+                <li><a href="#how-it-works" class="pg-nav__link">How It Works</a></li>
+                <li><a href="#workshops" class="pg-nav__link">Workshops</a></li>
+                <li><a href="#testimonials" class="pg-nav__link">Testimonials</a></li>
+                <li class="pg-nav__cta">
+                    <a href="{% url 'workshop_app:login' %}" class="btn-outline" style="padding: 6px 20px; min-height: 40px; font-size: 0.875rem;">Sign In</a>
+                    <a href="{% url 'workshop_app:register' %}" class="btn-candy" style="padding: 6px 20px; min-height: 40px; font-size: 0.875rem;">
+                        Get Started
+                        <span class="btn-arrow">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+
+            <button class="pg-nav__hamburger" id="nav-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════
+     HERO SECTION
+     ═══════════════════════════════════════════════ -->
+<section class="hero pg-section" id="hero">
+    <div class="pg-container">
+        <div class="hero__inner">
+
+            <!-- Left: Copy -->
+            <div class="hero__content">
+                <div class="hero__tag">
+                    <span class="pg-badge pg-badge--yellow">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        IIT Bombay Initiative
+                    </span>
+                </div>
+
+                <h1 class="hero__title">
+                    <span class="hero__title-line">Learn <span class="hero__title-highlight squiggly">Open Source</span></span>
+                    <span class="hero__title-line">Software — <span style="color: var(--secondary);">Free.</span></span>
+                </h1>
+
+                <p class="hero__desc">
+                    Propose, schedule, and attend hands-on workshops on Python, Scilab, OpenFOAM, and more — conducted by expert instructors from IIT Bombay.
+                </p>
+
+                <div class="hero__actions">
+                    <a href="{% url 'workshop_app:register' %}" class="btn-candy">
+                        Propose a Workshop
+                        <span class="btn-arrow">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                    </a>
+                    <a href="#how-it-works" class="btn-outline">See How It Works</a>
+                </div>
+
+                <div class="hero__stats">
+                    <div>
+                        <div class="hero__stat-num">500+</div>
+                        <div class="hero__stat-label">Workshops Held</div>
+                    </div>
+                    <div>
+                        <div class="hero__stat-num">50K+</div>
+                        <div class="hero__stat-label">Participants</div>
+                    </div>
+                    <div>
+                        <div class="hero__stat-num">100%</div>
+                        <div class="hero__stat-label">Free of Cost</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Illustration / Visual -->
+            <div class="hero__visual">
+                <div class="hero__illustration">
+                    <!-- Big background circle -->
+                    <div class="hero__big-circle"></div>
+
+                    <!-- Dot grid decoration -->
+                    <div class="hero__deco-dots" style="top: -20px; right: -20px;"></div>
+                    <div class="hero__deco-dots" style="bottom: 20px; left: -30px; opacity: 0.15;"></div>
+
+                    <!-- Floating cards -->
+                    <div class="hero__float-card hero__float-card--1">
+                        <div class="hero__float-card__icon" style="background: var(--accent);">
+                            <!-- Code icon -->
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        </div>
+                        <div class="hero__float-card__text">Python Workshop</div>
+                        <div class="hero__float-card__sub">Jan 15, 2026 • IIT Bombay</div>
+                    </div>
+
+                    <div class="hero__float-card hero__float-card--2">
+                        <div class="hero__float-card__icon" style="background: var(--secondary);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                        <div class="hero__float-card__text">Workshop Accepted! ✓</div>
+                        <div class="hero__float-card__sub">Instructor confirmed</div>
+                    </div>
+
+                    <div class="hero__float-card hero__float-card--3">
+                        <div class="hero__float-card__icon" style="background: var(--quaternary);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <div class="hero__float-card__text">120 Participants</div>
+                        <div class="hero__float-card__sub">Scilab • Online</div>
+                    </div>
+
+                    <!-- Decorative triangle -->
+                    <svg class="hero__deco-triangle" style="top: 5%; right: 30%; width: 40px; height: 40px;" viewBox="0 0 40 40">
+                        <polygon points="20,4 36,36 4,36" fill="var(--secondary)" stroke="var(--fg)" stroke-width="2"/>
+                    </svg>
+                    <!-- Decorative small circle -->
+                    <div style="position: absolute; bottom: 10%; right: 25%; width: 20px; height: 20px; border-radius: 50%; background: var(--quaternary); border: 2px solid var(--fg);"></div>
+                    <!-- Decorative plus -->
+                    <svg style="position: absolute; top: 40%; right: 0; width: 24px; height: 24px;" viewBox="0 0 24 24">
+                        <line x1="12" y1="4" x2="12" y2="20" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="4" y1="12" x2="20" y2="12" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     MARQUEE STRIP
+     ═══════════════════════════════════════════════ -->
+<div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track">
+        <span class="marquee-item"><span class="marquee-item__dot"></span> Python</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> Scilab</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> OpenFOAM</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> DWSIM</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> OpenModelica</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> Osdag</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> R</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> eSim</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="marquee-item"><span class="marquee-item__dot"></span> Python</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> Scilab</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> OpenFOAM</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> DWSIM</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> OpenModelica</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> Osdag</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> R</span>
+        <span class="marquee-item"><span class="marquee-item__dot"></span> eSim</span>
+    </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     FEATURES SECTION
+     ═══════════════════════════════════════════════ -->
+<section class="features pg-section dot-grid" id="features">
+    <div class="pg-container">
+        <div class="features__header animate-slide-up">
+            <span class="pg-badge pg-badge--outline" style="margin-bottom: 12px; display: inline-flex;">Why FOSSEE?</span>
+            <h2>Software Education, <span class="text-accent">Reimagined</span></h2>
+            <p>FOSSEE promotes the use of free & open source software in academic institutions across India.</p>
+        </div>
+
+        <div class="features__grid">
+            <!-- Connector line (desktop only) -->
+            <svg class="features__connector" aria-hidden="true">
+                <line x1="16.5%" y1="50%" x2="83.5%" y2="50%"/>
+            </svg>
+
+            <!-- Feature 1 -->
+            <div class="feature-card card-sticker animate-slide-up delay-1">
+                <div class="card-sticker__icon card-sticker__icon--violet">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <h3 class="card-sticker__title">Zero Cost</h3>
+                <p class="card-sticker__desc">All workshops are completely free. No registration fees, no hidden charges — ever. Funded by the MHRD, Govt. of India.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card card-sticker animate-slide-up delay-2">
+                <div class="card-sticker__icon card-sticker__icon--pink">
+                    <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <h3 class="card-sticker__title">Expert Instructors</h3>
+                <p class="card-sticker__desc">Learn directly from IIT Bombay faculty and trained FOSSEE team members who build and maintain these tools daily.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card card-sticker animate-slide-up delay-3">
+                <div class="card-sticker__icon card-sticker__icon--yellow">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <h3 class="card-sticker__title">Hands-On Learning</h3>
+                <p class="card-sticker__desc">Not just lectures — each workshop includes live coding exercises, real datasets, and practical problem-solving sessions.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     HOW IT WORKS
+     ═══════════════════════════════════════════════ -->
+<section class="how-it-works pg-section" id="how-it-works">
+    <div class="pg-container">
+        <div class="how-it-works__header">
+            <span class="pg-badge pg-badge--violet" style="margin-bottom: 12px;">4 Simple Steps</span>
+            <h2>From Idea to <span style="color: var(--tertiary);">Workshop</span></h2>
+            <p>Whether you're a coordinator or a student, getting started is easy.</p>
+        </div>
+
+        <div class="how-it-works__steps">
+            <!-- Step 1 -->
+            <div class="step-card animate-slide-up delay-1">
+                <div class="step-card__num">01</div>
+                <div class="step-card__icon" style="background: rgba(139,92,246,0.15);">
+                    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                </div>
+                <h3>Register</h3>
+                <p>Create your coordinator account in under 2 minutes.</p>
+                <div class="step-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card animate-slide-up delay-2">
+                <div class="step-card__num">02</div>
+                <div class="step-card__icon" style="background: rgba(244,114,182,0.15);">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <h3>Propose</h3>
+                <p>Choose a workshop type and pick your preferred date.</p>
+                <div class="step-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card animate-slide-up delay-3">
+                <div class="step-card__num">03</div>
+                <div class="step-card__icon" style="background: rgba(251,191,36,0.15);">
+                    <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <h3>Get Matched</h3>
+                <p>An IIT Bombay instructor reviews and accepts your proposal.</p>
+                <div class="step-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card animate-slide-up delay-4">
+                <div class="step-card__num">04</div>
+                <div class="step-card__icon" style="background: rgba(52,211,153,0.15);">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <h3>Learn!</h3>
+                <p>Attend the live workshop and gain real-world FOSS skills.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     WORKSHOP SHOWCASE
+     ═══════════════════════════════════════════════ -->
+<section class="workshops-showcase pg-section" id="workshops">
+    <div class="pg-container">
+        <div class="workshops-showcase__header">
+            <span class="pg-badge pg-badge--outline" style="margin-bottom: 12px; display: inline-flex;">Popular Workshops</span>
+            <h2>Explore <span class="text-accent">Workshop Types</span></h2>
+            <p>From simulation to scientific computing — pick the tool that matches your curriculum.</p>
+        </div>
+
+        <div class="workshops-grid">
+            <!-- Workshop 1 -->
+            <div class="workshop-card animate-slide-up delay-1">
+                <div class="workshop-card__header workshop-card__header--violet">
+                    <span class="pg-badge pg-badge--outline" style="background:rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.4); color: white; font-size:0.7rem; margin-bottom: 8px;">Most Popular</span>
+                    <h3>Python Workshop</h3>
+                </div>
+                <div class="workshop-card__body">
+                    <div class="workshop-card__detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        <span>2 Day Workshop</span>
+                    </div>
+                    <div class="workshop-card__detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <span>Data types, Control flow, Functions, File I/O</span>
+                    </div>
+                    <div class="workshop-card__detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <span>Suitable for all levels</span>
+                    </div>
+                </div>
+                <div class="workshop-card__footer">
+                    <a href="{% url 'workshop_app:register' %}" class="btn-candy" style="width: 100%; justify-content: center; font-size: 0.875rem; padding: 8px 16px;">
+                        Propose This Workshop
+                    </a>
+                </div>
+            </div>
+
+            <!-- Workshop 2 -->
+            <div class="workshop-card animate-slide-up delay-2">
+                <div class="workshop-card__header workshop-card__header--pink">
+                    <h3>Scilab Workshop</h3>
+                </div>
+                <div class="workshop-card__body">
+                    <div class="workshop-card__detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        <span>2 Day Workshop</span>
+                    </div>
+                    <div class="workshop-card__detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <span>Numerical computation, Plotting, Xcos</span>
+                    </div>
+                    <div class="workshop-card__detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <span>Engineering students</span>
+                    </div>
+                </div>
+                <div class="workshop-card__footer">
+                    <a href="{% url 'workshop_app:register' %}" class="btn-candy btn-candy--pink" style="width: 100%; justify-content: center; font-size: 0.875rem; padding: 8px 16px;">
+                        Propose This Workshop
+                    </a>
+                </div>
+            </div>
+
+            <!-- Workshop 3 -->
+            <div class="workshop-card animate-slide-up delay-3">
+                <div class="workshop-card__header workshop-card__header--mint">
+                    <h3>OpenFOAM Workshop</h3>
+                </div>
+                <div class="workshop-card__body">
+                    <div class="workshop-card__detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        <span>3 Day Workshop</span>
+                    </div>
+                    <div class="workshop-card__detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <span>CFD simulation, Mesh generation</span>
+                    </div>
+                    <div class="workshop-card__detail">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <span>Advanced / Research</span>
+                    </div>
+                </div>
+                <div class="workshop-card__footer">
+                    <a href="{% url 'workshop_app:register' %}" class="btn-candy btn-candy--mint" style="width: 100%; justify-content: center; font-size: 0.875rem; padding: 8px 16px;">
+                        Propose This Workshop
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     TESTIMONIALS / SOCIAL PROOF
+     ═══════════════════════════════════════════════ -->
+<section class="social-proof pg-section" id="testimonials">
+    <div class="pg-container">
+        <div class="social-proof__header">
+            <span class="pg-badge pg-badge--pink" style="margin-bottom: 12px;">What People Say</span>
+            <h2>Trusted by <span class="text-accent">Educators</span> Nationwide</h2>
+            <p>FOSSEE workshops have impacted thousands of students and faculty across India.</p>
+        </div>
+
+        <div class="testimonial-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card animate-slide-up delay-1">
+                <p class="testimonial-card__quote">"The Python workshop was incredibly well-structured. My students went from zero to writing real programs in just 2 days."</p>
+                <div class="testimonial-card__author">
+                    <div class="testimonial-card__avatar" style="background: var(--accent);">RP</div>
+                    <div>
+                        <div class="testimonial-card__name">Dr. Rajesh Patil</div>
+                        <div class="testimonial-card__role">Professor, VJTI Mumbai</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card animate-slide-up delay-2">
+                <p class="testimonial-card__quote">"Booking a workshop was seamless. The instructor was responsive, and the FOSSEE team handled everything professionally."</p>
+                <div class="testimonial-card__author">
+                    <div class="testimonial-card__avatar" style="background: var(--secondary);">AM</div>
+                    <div>
+                        <div class="testimonial-card__name">Prof. Anjali Mehta</div>
+                        <div class="testimonial-card__role">Coordinator, NIT Surat</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card animate-slide-up delay-3">
+                <p class="testimonial-card__quote">"Switching from proprietary MATLAB to Scilab saved our department lakhs. FOSSEE made the transition painless."</p>
+                <div class="testimonial-card__author">
+                    <div class="testimonial-card__avatar" style="background: var(--quaternary);">SK</div>
+                    <div>
+                        <div class="testimonial-card__name">Dr. Sunil Kulkarni</div>
+                        <div class="testimonial-card__role">HOD CS, COEP Pune</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     CTA SECTION
+     ═══════════════════════════════════════════════ -->
+<section class="cta-section pg-section">
+    <div class="pg-container">
+        <div class="cta-card">
+            <!-- Decorative circles -->
+            <div class="cta-card__deco" style="width: 200px; height: 200px; top: -60px; right: -40px;"></div>
+            <div class="cta-card__deco" style="width: 120px; height: 120px; bottom: -30px; left: -20px;"></div>
+            <div class="cta-card__deco" style="width: 80px; height: 80px; top: 30px; left: 60px;"></div>
+
+            <h2 style="position: relative; z-index: 1;">Ready to bring FOSS to your campus?</h2>
+            <p style="position: relative; z-index: 1;">It takes less than 5 minutes to propose a workshop. An IIT Bombay instructor will respond within days.</p>
+            <a href="{% url 'workshop_app:register' %}" class="btn-candy" style="position: relative; z-index: 1;">
+                Get Started — It's Free
+                <span class="btn-arrow">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════ -->
+<footer class="pg-footer">
+    <div class="pg-container">
+        <div class="pg-footer__inner">
+            <div>
+                <div class="pg-footer__brand">
+                    <span class="pg-footer__brand-dot"></span>
+                    FOSSEE Workshops
+                </div>
+                <p class="pg-footer__desc">Free & Open Source Software for Education. An initiative by IIT Bombay, funded by MHRD, Govt. of India.</p>
+            </div>
+
+            <div class="pg-footer__col">
+                <h4>Platform</h4>
+                <ul>
+                    <li><a href="{% url 'workshop_app:login' %}">Sign In</a></li>
+                    <li><a href="{% url 'workshop_app:register' %}">Register</a></li>
+                    <li><a href="{% url 'statistics_app:public' %}">Statistics</a></li>
+                </ul>
+            </div>
+
+            <div class="pg-footer__col">
+                <h4>Workshops</h4>
+                <ul>
+                    <li><a href="#">Python</a></li>
+                    <li><a href="#">Scilab</a></li>
+                    <li><a href="#">OpenFOAM</a></li>
+                    <li><a href="#">DWSIM</a></li>
+                </ul>
+            </div>
+
+            <div class="pg-footer__col">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="https://fossee.in" target="_blank" rel="noopener">FOSSEE Website</a></li>
+                    <li><a href="https://www.iitb.ac.in" target="_blank" rel="noopener">IIT Bombay</a></li>
+                    <li><a href="https://spoken-tutorial.org" target="_blank" rel="noopener">Spoken Tutorial</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="pg-footer__bottom">
+            <span>© 2026 FOSSEE, IIT Bombay. All rights reserved.</span>
+            <div class="pg-footer__bottom-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════════ -->
+<script>
+// Mobile nav toggle
+const toggle = document.getElementById('nav-toggle');
+const links = document.getElementById('nav-links');
+toggle.addEventListener('click', () => {
+    links.classList.toggle('open');
+});
+
+// Close mobile nav on link click OR tapping the overlay background
+links.addEventListener('click', (e) => {
+    // Close if tapping the overlay background itself or a nav link
+    if (e.target === links || e.target.classList.contains('pg-nav__link')) {
+        links.classList.remove('open');
+    }
+});
+
+// Close mobile nav on CTA button clicks too
+links.querySelectorAll('.btn-candy, .btn-outline').forEach(btn => {
+    btn.addEventListener('click', () => links.classList.remove('open'));
+});
+
+// Intersection Observer for scroll animations
+const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe all animated elements
+document.querySelectorAll('.animate-slide-up').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = `opacity 0.6s cubic-bezier(0.34,1.56,0.64,1), transform 0.6s cubic-bezier(0.34,1.56,0.64,1)`;
+    observer.observe(el);
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
+
+// Navbar background on scroll
+window.addEventListener('scroll', () => {
+    const nav = document.getElementById('main-nav');
+    if (window.scrollY > 50) {
+        nav.style.background = 'rgba(255, 253, 245, 0.95)';
+        nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
+    } else {
+        nav.style.background = 'rgba(255, 253, 245, 0.85)';
+        nav.style.boxShadow = 'none';
+    }
+});
+</script>
+
+</body>
+</html>
