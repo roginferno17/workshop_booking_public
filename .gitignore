@@ -36,6 +36,7 @@ db.sqlite3
 venv/
 .venv/
 env/
+.history/
 
 #MAC OS specific
 .DS_Store
