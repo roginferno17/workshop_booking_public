@@ -460,6 +460,7 @@
 .signout-actions .btn-outline {
   flex: 1;
   justify-content: center;
+  white-space: nowrap;
 }
 
 /* Red/danger sign out button */
