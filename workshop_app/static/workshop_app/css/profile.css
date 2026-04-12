@@ -3,11 +3,33 @@
    Signup-page-inspired card sections + custom dropdowns
    ============================================================= */
 
+/* ── Scrollbar Fix ──────────────────────────────
+   Lock html/body so ONLY .dash-page scrolls,
+   then hide .dash-page's scrollbar.
+   ─────────────────────────────────────────────── */
+html, body {
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+.dash-page {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE / Edge */
+}
+.dash-page::-webkit-scrollbar {
+  display: none !important;        /* Chrome / Safari / Edge */
+  width: 0 !important;
+  height: 0 !important;
+}
+
 /* ── Layout ──────────────────────────────────── */
 .profile-layout {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
-  gap: var(--space-6);
+  gap: var(--space-8);
   align-items: start;
 }
 
@@ -134,20 +156,24 @@
   margin-bottom: var(--space-5);
 }
 
-/* Title field — give the pill-selector & search bar breathing room */
+/* ── Title field — search bar + pill spacing ─── */
 .profile-field--title {
   margin-bottom: var(--space-8);
 }
 
-.profile-field--title .pg-dropdown__typeahead,
-.profile-field--title .pg-dropdown__search,
-.profile-field--title .pg-dropdown__search-wrap {
+.profile-field--title label {
   margin-bottom: var(--space-4);
 }
 
+.profile-field--title .pg-dropdown__search-wrap {
+  margin-bottom: var(--space-5);
+}
+
 .profile-field--title .pg-dropdown__options--pills {
-  gap: var(--space-3);
-  padding-top: var(--space-3);
+  gap: var(--space-3) var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+  margin-top: var(--space-2);
 }
 
 .profile-field label {
