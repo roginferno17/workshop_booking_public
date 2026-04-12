@@ -98,7 +98,7 @@
      ═══════════════════════════════════════════ -->
 <div class="dash-body">
     <div class="pg-container">
-        <div class="propose-layout">
+        <div class="profile-layout">
 
             <!-- Profile info -->
             <div class="dash-card">
@@ -182,21 +182,14 @@
 
 {% else %}
 <!-- ═══════════════════════════════════════════
-     EDIT MODE — Own profile
+     EDIT MODE — Own profile (Signup-inspired)
      ═══════════════════════════════════════════ -->
 <div class="dash-body">
     <div class="pg-container">
-        <div class="propose-layout">
+        <div class="profile-layout">
 
-            <!-- Edit form -->
-            <div class="dash-card propose-card">
-                <div class="dash-card__header">
-                    <h2>
-                        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                        Edit Profile
-                    </h2>
-                </div>
-
+            <!-- ─── Edit Form ─── -->
+            <div class="profile-form-area">
                 <form action="" method="post" id="profile-form">
                     {% csrf_token %}
 
@@ -204,139 +197,165 @@
                     {% if form.errors %}
                         {% for field in form %}
                             {% for error in field.errors %}
-                                <div class="propose-errors" style="margin-bottom: var(--space-4);">
-                                    <div class="propose-errors__header">
-                                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                                        {{ field.label }}: {{ error|escape }}
-                                    </div>
+                                <div class="profile-alert">
+                                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                    {{ field.label }}: {{ error|escape }}
                                 </div>
                             {% endfor %}
                         {% endfor %}
                     {% endif %}
 
-                    <!-- Title -->
-                    <div class="propose-field" style="max-width: 180px;">
-                        <label for="id_title">
-                            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                            Title
-                        </label>
-                        {{ form.title }}
-                    </div>
-
-                    <!-- Name row -->
-                    <div class="profile-row">
-                        <div class="propose-field">
-                            <label for="id_first_name">
+                    <!-- ─── Section 1: Personal Information ─── -->
+                    <div class="profile-card" id="section-personal">
+                        <div class="profile-card__section-title">
+                            <span class="profile-card__section-icon" style="background: var(--accent);">
                                 <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                First Name
+                            </span>
+                            Personal Information
+                        </div>
+
+                        <div class="profile-field profile-field--title" style="max-width: 200px;">
+                            <label for="id_title">Title</label>
+                            {{ form.title }}
+                        </div>
+
+                        <div class="profile-row">
+                            <div class="profile-field">
+                                <label for="id_first_name">First Name</label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="profile-field">
+                                <label for="id_last_name">Last Name</label>
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+
+                        <div class="profile-field">
+                            <label for="id_phone_number">
+                                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                Phone Number
                             </label>
-                            {{ form.first_name }}
-                        </div>
-                        <div class="propose-field">
-                            <label for="id_last_name">Last Name</label>
-                            {{ form.last_name }}
+                            {{ form.phone_number }}
                         </div>
                     </div>
 
-                    <!-- Phone -->
-                    <div class="propose-field">
-                        <label for="id_phone_number">
-                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            Phone Number
-                        </label>
-                        {{ form.phone_number }}
-                    </div>
+                    <!-- ─── Section 2: Institution & Location ─── -->
+                    <div class="profile-card" id="section-institution">
+                        <div class="profile-card__section-title">
+                            <span class="profile-card__section-icon" style="background: var(--secondary);">
+                                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            </span>
+                            Institution Details
+                        </div>
 
-                    <!-- Institute -->
-                    <div class="propose-field">
-                        <label for="id_institute">
-                            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                            Institute
-                        </label>
-                        {{ form.institute }}
-                    </div>
-
-                    <!-- Department & Position row -->
-                    <div class="profile-row">
-                        <div class="propose-field">
-                            <label for="id_department">
-                                <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-                                Department
+                        <div class="profile-field">
+                            <label for="id_institute">
+                                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                                Institute / Organization
                             </label>
-                            {{ form.department }}
+                            {{ form.institute }}
                         </div>
-                        <div class="propose-field">
-                            <label for="id_position">Position</label>
-                            {{ form.position }}
+
+                        <div class="profile-row">
+                            <div class="profile-field">
+                                <label for="id_department">
+                                    <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                                    Department
+                                </label>
+                                {{ form.department }}
+                            </div>
+                            <div class="profile-field">
+                                <label for="id_position">Position</label>
+                                {{ form.position }}
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Location & State row -->
-                    <div class="profile-row">
-                        <div class="propose-field">
-                            <label for="id_location">
-                                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                Location
-                            </label>
-                            {{ form.location }}
+                    <!-- ─── Section 3: Location ─── -->
+                    <div class="profile-card" id="section-location">
+                        <div class="profile-card__section-title">
+                            <span class="profile-card__section-icon" style="background: var(--quaternary); border: var(--border-w) solid var(--fg);">
+                                <svg viewBox="0 0 24 24" stroke="var(--fg)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </span>
+                            Location
                         </div>
-                        <div class="propose-field">
-                            <label for="id_state">State</label>
-                            {{ form.state }}
+
+                        <div class="profile-row">
+                            <div class="profile-field">
+                                <label for="id_location">
+                                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    City / Location
+                                </label>
+                                {{ form.location }}
+                            </div>
+                            <div class="profile-field">
+                                <label for="id_state">State</label>
+                                {{ form.state }}
+                            </div>
                         </div>
                     </div>
 
                     <!-- Submit -->
-                    <div style="display: flex; gap: var(--space-3); margin-top: var(--space-6);">
-                        <button type="submit" class="btn-candy propose-submit" style="flex:1;">
+                    <div class="profile-actions">
+                        <button type="submit" class="btn-candy profile-submit" id="profile-submit">
                             Save Changes
                             <span class="btn-arrow">
                                 <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </span>
                         </button>
-                        <a href="{% url 'workshop_app:dashboard' %}" class="btn-outline" style="flex: 0 0 auto;">
+                        <a href="{% url 'workshop_app:dashboard' %}" class="btn-outline">
                             Cancel
                         </a>
                     </div>
                 </form>
             </div>
 
-            <!-- Quick Actions sidebar -->
-            <div class="dash-card propose-tips">
-                <div class="dash-card__header">
-                    <h2>
-                        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                        Quick Actions
-                    </h2>
+            <!-- ─── Quick Actions sidebar ─── -->
+            <div class="profile-sidebar">
+                <div class="dash-card profile-sidebar-card">
+                    <div class="dash-card__header">
+                        <h2>
+                            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            Quick Actions
+                        </h2>
+                    </div>
+                    <div class="dash-actions">
+                        <a href="{% url 'password_change' %}" class="dash-action">
+                            <div class="dash-action__icon" style="background: var(--accent);">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </div>
+                            <div>
+                                <div class="dash-action__title">Change Password</div>
+                                <div class="dash-action__desc">Update your security settings</div>
+                            </div>
+                        </a>
+                        <a href="{% url 'workshop_app:dashboard' %}" class="dash-action">
+                            <div class="dash-action__icon" style="background: var(--tertiary);">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                            </div>
+                            <div>
+                                <div class="dash-action__title">Dashboard</div>
+                                <div class="dash-action__desc">Return to your overview</div>
+                            </div>
+                        </a>
+                        <a href="{% url 'statistics_app:public' %}" class="dash-action">
+                            <div class="dash-action__icon" style="background: var(--quaternary);">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
+                            </div>
+                            <div>
+                                <div class="dash-action__title">View Statistics</div>
+                                <div class="dash-action__desc">Workshop data across India</div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <div class="dash-actions">
-                    <a href="{% url 'password_change' %}" class="dash-action">
-                        <div class="dash-action__icon" style="background: var(--accent);">
-                            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        </div>
-                        <div>
-                            <div class="dash-action__title">Change Password</div>
-                            <div class="dash-action__desc">Update your security settings</div>
-                        </div>
-                    </a>
-                    <a href="{% url 'workshop_app:dashboard' %}" class="dash-action">
-                        <div class="dash-action__icon" style="background: var(--tertiary);">
-                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                        </div>
-                        <div>
-                            <div class="dash-action__title">Dashboard</div>
-                            <div class="dash-action__desc">Return to your overview</div>
-                        </div>
-                    </a>
-                    <a href="{% url 'statistics_app:public' %}" class="dash-action">
-                        <div class="dash-action__icon" style="background: var(--quaternary);">
-                            <svg viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
-                        </div>
-                        <div>
-                            <div class="dash-action__title">View Statistics</div>
-                            <div class="dash-action__desc">Workshop data across India</div>
-                        </div>
-                    </a>
+
+                <!-- Profile completion hint -->
+                <div class="profile-hint-card">
+                    <div class="profile-hint-card__icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    </div>
+                    <p>Keep your profile up-to-date to ensure workshop communications reach you correctly.</p>
                 </div>
             </div>
 
@@ -384,12 +403,62 @@
 })();
 </script>
 
-<!-- Style Django form inputs -->
+<!-- Configure custom dropdowns for profile form -->
 <script>
-document.querySelectorAll('.propose-field input, .propose-field select').forEach(function(el) {
-    el.classList.remove('form-control', 'custom-select');
-    el.classList.add('pg-input');
-});
+(function() {
+    var titleSelect = document.getElementById('id_title');
+    var departmentSelect = document.getElementById('id_department');
+    var stateSelect = document.getElementById('id_state');
+    var positionSelect = document.getElementById('id_position');
+
+    // Title: pill-style selector
+    if (titleSelect) {
+        titleSelect.dataset.pgVariant = 'pills';
+    }
+
+    // Position: pill-style selector (only 2 options)
+    if (positionSelect) {
+        positionSelect.dataset.pgVariant = 'pills';
+    }
+
+    // Department & State: searchable typeahead
+    [departmentSelect, stateSelect].forEach(function(select) {
+        if (select) {
+            select.dataset.pgVariant = 'typeahead';
+            select.dataset.pgSearchable = 'true';
+        }
+    });
+
+    if (departmentSelect) {
+        departmentSelect.dataset.pgPlaceholder = 'Search departments…';
+    }
+
+    if (stateSelect) {
+        stateSelect.dataset.pgPlaceholder = 'Search states…';
+    }
+})();
+</script>
+
+<!-- Custom dropdown component (must run after data attributes are set) -->
+<script src="{% static 'workshop_app/js/pg-dropdown.js' %}"></script>
+
+<!-- Animate sections on scroll -->
+<script>
+(function() {
+    var cards = document.querySelectorAll('.profile-card');
+    if (!cards.length) return;
+
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('profile-card--visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    cards.forEach(function(card) { observer.observe(card); });
+})();
 </script>
 
 </body>

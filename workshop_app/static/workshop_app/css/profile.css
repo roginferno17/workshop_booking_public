@@ -1,6 +1,28 @@
 /* =============================================================
-   PROFILE PAGE — Playful Geometric Design
+   PROFILE PAGE — Playful Geometric Design (Revamped)
+   Signup-page-inspired card sections + custom dropdowns
    ============================================================= */
+
+/* ── Layout ──────────────────────────────────── */
+.profile-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.profile-form-area {
+  animation: profile-fade-up 0.5s var(--ease-smooth) both;
+  animation-delay: 0.1s;
+}
+
+.profile-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  animation: profile-fade-up 0.5s var(--ease-smooth) both;
+  animation-delay: 0.3s;
+}
 
 /* ── Hero profile card ───────────────────────── */
 .profile-hero-card {
@@ -20,6 +42,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  animation: avatar-pop 0.6s var(--ease-bounce) both;
+  animation-delay: 0.2s;
 }
 
 .profile-avatar span {
@@ -56,11 +80,198 @@
   fill: none;
 }
 
-/* ── Form rows ───────────────────────────────── */
+/* ── Form card sections (signup-inspired) ────── */
+.profile-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-8);
+  margin-bottom: var(--space-6);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s var(--ease-smooth), transform 0.5s var(--ease-smooth);
+}
+
+.profile-card--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.profile-card__section-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.profile-card__section-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-card__section-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: white;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* ── Form fields ─────────────────────────────── */
+.profile-field {
+  margin-bottom: var(--space-5);
+}
+
+.profile-field label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted-fg);
+  margin-bottom: var(--space-2);
+}
+
+.profile-field label svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.profile-field .pg-input,
+.profile-field input[type="text"],
+.profile-field input[type="email"],
+.profile-field select {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-w) solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  color: var(--fg);
+  transition: all var(--duration-fast) var(--ease-smooth);
+  outline: none;
+}
+
+.profile-field input:focus,
+.profile-field select:focus,
+.profile-field .pg-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+/* Hide native select when custom dropdown is present */
+.profile-field select {
+  display: none;
+}
+
+/* ── Form rows (grid) ────────────────────────── */
 .profile-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4);
+}
+
+/* ── Error alert ─────────────────────────────── */
+.profile-alert {
+  background: #FEF2F2;
+  border: var(--border-w) solid var(--danger);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--danger);
+  font-weight: 500;
+  animation: profile-shake 0.4s var(--ease-bounce);
+}
+
+.profile-alert svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--danger);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  flex-shrink: 0;
+}
+
+/* ── Submit actions ──────────────────────────── */
+.profile-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.profile-submit {
+  flex: 1;
+  justify-content: center;
+}
+
+.profile-actions .btn-outline {
+  flex: 0 0 auto;
+}
+
+/* ── Profile hint card ───────────────────────── */
+.profile-hint-card {
+  background: rgba(139, 92, 246, 0.04);
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.profile-hint-card__icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+}
+
+.profile-hint-card__icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.profile-hint-card p {
+  font-size: var(--text-sm);
+  color: var(--muted-fg);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Sidebar card ────────────────────────────── */
+.profile-sidebar-card {
+  border: 1px solid var(--border);
 }
 
 /* ── View-mode detail rows ───────────────────── */
@@ -96,8 +307,56 @@
   color: var(--fg);
 }
 
+/* ── Animations ──────────────────────────────── */
+@keyframes profile-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes avatar-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes profile-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+}
+
 /* ── Responsive ──────────────────────────────── */
+@media (max-width: 1024px) {
+  .profile-layout {
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-5);
+  }
+
+  .profile-card {
+    padding: var(--space-6);
+  }
+}
+
 @media (max-width: 768px) {
+  .profile-layout {
+    grid-template-columns: 1fr;
+  }
+
   .profile-hero-card {
     flex-direction: column;
     text-align: center;
@@ -113,5 +372,22 @@
 
   .profile-row {
     grid-template-columns: 1fr;
+  }
+
+  .profile-card {
+    padding: var(--space-5);
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .profile-submit {
+    width: 100%;
+  }
+
+  .profile-actions .btn-outline {
+    width: 100%;
+    justify-content: center;
   }
 }

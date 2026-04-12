@@ -1,88 +1,312 @@
-{% extends "workshop_app/base.html" %}
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="{% static 'workshop_app/img/favicon.svg' %}">
+    <title>My Workshops — FOSSEE Workshops</title>
+    <meta name="description" content="Track the status of your proposed and accepted workshops.">
 
-{% block title %}
-    My Workshops
-{% endblock %}
+    <link rel="stylesheet" href="{% static 'workshop_app/css/design-tokens.css' %}">
+    <link rel="stylesheet" href="{% static 'workshop_app/css/playful-geometric.css' %}">
+    <link rel="stylesheet" href="{% static 'workshop_app/css/landing.css' %}">
+    <link rel="stylesheet" href="{% static 'workshop_app/css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'workshop_app/css/workshop-status.css' %}">
 
-{% block extra-custom-scripts %}
-<style >
-    .table-heading{
-        color: #04a9cf;
-    }
-    </style>
-{% endblock %}
+    <script>if(sessionStorage.getItem('pageTransitionName')){document.documentElement.classList.add('page-transitioning');}</script>
+</head>
+<body>
 
-{% block content %}
-    {% if not workshops %}
-        <div class="container">
-            <div class="jumbotron">
-                <h1>Welcome {{ user.first_name }}</h1>
-                <p>Information Related to your workshops will be shown here, you can also
-                    propose a Workshop as per your available date in <strong>Propose Workshop tab</strong> .</p>
+<div class="dash-page">
+
+<!-- ═══════════════════════════════════════════
+     NAVBAR
+     ═══════════════════════════════════════════ -->
+<nav class="pg-nav" id="main-nav" style="background: rgba(255,253,245,0.95);">
+    <div class="pg-container">
+        <div class="pg-nav__inner">
+            <a href="{% url 'workshop_app:dashboard' %}" class="pg-nav__logo">
+                <span class="pg-nav__logo-dot"></span>
+                FOSSEE Workshops
+            </a>
+            <ul class="pg-nav__links" id="nav-links">
+                <li><a href="/" class="pg-nav__link">Home</a></li>
+                <li><a href="{% url 'statistics_app:public' %}" class="pg-nav__link">Statistics</a></li>
+                {% if not request.user|has_group:"instructor" %}
+                <li><a href="{% url 'workshop_app:propose_workshop' %}" class="pg-nav__link">Propose Workshop</a></li>
+                {% endif %}
+                <li><a href="{% url 'workshop_app:workshop_type_list' %}" class="pg-nav__link">Workshop Types</a></li>
+                <li class="pg-nav__cta">
+                    <a href="{% url 'workshop_app:view_own_profile' %}" class="btn-outline" style="padding: 6px 16px; min-height: 38px; font-size: 0.85rem;">
+                        <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        {{ user.first_name }}
+                    </a>
+                    <a href="{% url 'workshop_app:logout' %}" class="btn-candy" style="padding: 6px 16px; min-height: 38px; font-size: 0.85rem;">
+                        Sign Out
+                    </a>
+                </li>
+            </ul>
+            <button class="pg-nav__hamburger" id="nav-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<section class="dash-hero" style="padding-bottom: var(--space-10);">
+    <div class="dash-hero__shape dash-hero__shape--1"></div>
+    <div class="dash-hero__shape dash-hero__shape--2"></div>
+    <div class="dash-hero__shape dash-hero__shape--3"></div>
+
+    <div class="pg-container">
+        <div class="dash-hero__content">
+            <a href="{% url 'workshop_app:dashboard' %}" class="ws-back">
+                <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Back to Dashboard
+            </a>
+            <span class="pg-badge pg-badge--violet" style="margin-top: var(--space-4);">Coordinator</span>
+            <h1>My <span style="color: var(--tertiary);">Workshops</span></h1>
+            <p>Track the status of all your proposed and accepted workshops.</p>
+        </div>
+    </div>
+</section>
+
+{% if not workshops %}
+<!-- ═══════════════════════════════════════════
+     EMPTY STATE
+     ═══════════════════════════════════════════ -->
+<div class="dash-body">
+    <div class="pg-container">
+        <div class="ws-empty-card">
+            <div class="ws-empty-card__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+            </div>
+            <h2>Welcome, {{ user.first_name }}!</h2>
+            <p>Information related to your workshops will appear here. Propose a workshop to get started.</p>
+            <a href="{% url 'workshop_app:propose_workshop' %}" class="btn-candy" style="margin-top: var(--space-4);">
+                Propose Workshop
+                <span class="btn-arrow">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<!-- ═══════════════════════════════════════════
+     WORKSHOP TABLES
+     ═══════════════════════════════════════════ -->
+<div class="dash-body">
+    <div class="pg-container">
+
+        <!-- Tab navigation -->
+        <div class="ws-tabs" id="ws-tabs">
+            <button class="ws-tab ws-tab--active" data-tab="accepted" id="tab-accepted">
+                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Accepted
+                <span class="ws-tab__count ws-tab__count--success" id="count-accepted">0</span>
+            </button>
+            <button class="ws-tab" data-tab="pending" id="tab-pending">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                Pending
+                <span class="ws-tab__count ws-tab__count--warning" id="count-pending">0</span>
+            </button>
+        </div>
+
+        <!-- Accepted Workshops -->
+        <div class="ws-panel ws-panel--active" id="panel-accepted">
+            <div class="dash-card">
+                <div class="dash-card__header">
+                    <h2>
+                        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Workshops Accepted
+                    </h2>
+                </div>
+
+                <div class="dash-table-wrap" id="accepted-table-wrap">
+                    <table class="dash-table">
+                        <thead>
+                            <tr>
+                                <th>Workshop</th>
+                                <th>Instructor</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accepted-body">
+                            {% for workshop in workshops %}
+                                {% if workshop.status %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'workshop_app:workshop_details' workshop.id %}" class="dash-table__link">
+                                            {{ workshop.workshop_type|capfirst }}
+                                        </a>
+                                    </td>
+                                    <td>{{ workshop.instructor.get_full_name }}</td>
+                                    <td>{{ workshop.date|date }}</td>
+                                    <td><span class="dash-badge dash-badge--success">{{ workshop.get_status }}</span></td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="ws-empty-inline" id="accepted-empty" style="display: none;">
+                    <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <p>No accepted workshops yet.</p>
+                </div>
             </div>
         </div>
-    {% else %}
-        <h3 class="text-center">The status of your workshops </h3>
-        <br>
 
-        <!-- Accepted View -->
+        <!-- Pending Workshops -->
+        <div class="ws-panel" id="panel-pending">
+            <div class="dash-card">
+                <div class="dash-card__header">
+                    <h2>
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        Workshops Proposed By Me
+                    </h2>
+                </div>
 
-        <br>
-        <div class="container">
-            <h3 class="text-center table-heading"><strong>Workshops Accepted</strong></h3>
-            <table class="table table-striped table-responsive-sm">
-                <thead>
-                <tr>
-                    <th>Workshop Name</th>
-                    <th>Instructor Name</th>
-                    <th>Workshop Day</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
+                <div class="dash-table-wrap" id="pending-table-wrap">
+                    <table class="dash-table">
+                        <thead>
+                            <tr>
+                                <th>Workshop</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pending-body">
+                            {% for workshop in workshops %}
+                                {% if not workshop.status and workshop.tnc_accepted %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'workshop_app:workshop_details' workshop.id %}" class="dash-table__link">
+                                            {{ workshop.workshop_type|capfirst }}
+                                        </a>
+                                    </td>
+                                    <td>{{ workshop.date|date }}</td>
+                                    <td><span class="dash-badge dash-badge--warning">{{ workshop.get_status }}</span></td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
-                {% for workshop in workshops %}
-                    <tbody>
-                    <tr>
-                        {% if workshop.status %}
-                            <td><a href="{% url 'workshop_app:workshop_details' workshop.id %}" >{{ workshop.workshop_type |capfirst }}</a></td>
-                            <td>{{ workshop.instructor.get_full_name }}</td>
-                            <td>{{ workshop.date | date }}</td>
-                            <td><span class="badge badge-success">{{ workshop.get_status }}</span></td>
-                        {% endif %}
-                    </tr>
-                    </tbody>
-                {% endfor %}
-
-            </table>
+                <div class="ws-empty-inline" id="pending-empty" style="display: none;">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <p>No pending workshops.</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Proposed View -->
+    </div>
+</div>
+{% endif %}
 
-        <br>
-        <div class="container">
-            <h3 class="text-center table-heading"><strong>Workshops Proposed By Me</strong></h3>
-            <table class="table table-striped table-responsive-sm">
-                <thead>
-                <tr>
-                    <th>Workshop Name</th>
-                    <th>Workshop Day</th>
-                    <th>Status</th>
-                </tr>
-                </thead>
-                {% for workshop in workshops %}
-                    <tbody>
-                    <tr>
-                        {% if not workshop.status and workshop.tnc_accepted %}
-                            <td><a href="{% url 'workshop_app:workshop_details' workshop.id %}" >{{ workshop.workshop_type |capfirst }}</a></td>
-                            <td>{{ workshop.date | date }}</td>
-                            <td><span class="badge badge-warning">{{ workshop.get_status }}</span></td>
-                        {% endif %}
-                    </tr>
-                    </tbody>
+</div>
 
-                {% endfor %}
-            </table>
-        </div>
-    {% endif %}
+<!-- Page transition overlay -->
+<div class="page-transition" id="page-transition">
+    <span class="page-transition__dot"></span>
+    <span class="page-transition__text"></span>
+</div>
 
-{% endblock %}
+<script>
+(function() {
+    var overlay = document.getElementById('page-transition');
+    var textEl = overlay.querySelector('.page-transition__text');
+
+    var transName = sessionStorage.getItem('pageTransitionName');
+    if (transName) {
+        sessionStorage.removeItem('pageTransitionName');
+        textEl.textContent = transName;
+        setTimeout(function() {
+            document.documentElement.classList.remove('page-transitioning');
+            overlay.classList.add('page-transition--exit');
+        }, 500);
+        setTimeout(function() { overlay.classList.remove('page-transition--exit'); }, 1200);
+    } else {
+        textEl.textContent = 'My Workshops';
+        document.documentElement.classList.add('page-transitioning');
+        setTimeout(function() {
+            document.documentElement.classList.remove('page-transitioning');
+            overlay.classList.add('page-transition--exit');
+        }, 350);
+        setTimeout(function() { overlay.classList.remove('page-transition--exit'); }, 1000);
+    }
+
+    // Mobile nav
+    document.getElementById('nav-toggle').addEventListener('click', function() {
+        document.getElementById('nav-links').classList.toggle('open');
+    });
+})();
+</script>
+
+<!-- Tab switching & count logic -->
+<script>
+(function() {
+    var tabs = document.querySelectorAll('.ws-tab');
+    var panels = document.querySelectorAll('.ws-panel');
+    if (!tabs.length) return;
+
+    // Count rows in each table
+    var acceptedRows = document.querySelectorAll('#accepted-body tr').length;
+    var pendingRows = document.querySelectorAll('#pending-body tr').length;
+
+    var countAccepted = document.getElementById('count-accepted');
+    var countPending = document.getElementById('count-pending');
+    if (countAccepted) countAccepted.textContent = acceptedRows;
+    if (countPending) countPending.textContent = pendingRows;
+
+    // Show empty state if table has no rows
+    if (acceptedRows === 0) {
+        var aw = document.getElementById('accepted-table-wrap');
+        var ae = document.getElementById('accepted-empty');
+        if (aw) aw.style.display = 'none';
+        if (ae) ae.style.display = '';
+    }
+    if (pendingRows === 0) {
+        var pw = document.getElementById('pending-table-wrap');
+        var pe = document.getElementById('pending-empty');
+        if (pw) pw.style.display = 'none';
+        if (pe) pe.style.display = '';
+    }
+
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            var target = this.dataset.tab;
+
+            tabs.forEach(function(t) { t.classList.remove('ws-tab--active'); });
+            this.classList.add('ws-tab--active');
+
+            panels.forEach(function(p) {
+                p.classList.remove('ws-panel--active');
+                if (p.id === 'panel-' + target) {
+                    p.classList.add('ws-panel--active');
+                }
+            });
+        });
+    });
+})();
+</script>
+
+</body>
+</html>

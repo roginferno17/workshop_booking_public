@@ -221,9 +221,9 @@ class ProfileForm(forms.ModelForm):
                    "key_expiry_time", "how_did_you_hear_about_us"]
 
     first_name = forms.CharField(max_length=30, widget=forms.TextInput(
-                    {'class': "form-control", 'placeholder': "First Name"}))
+                    {'class': "pg-input", 'placeholder': "First name"}))
     last_name = forms.CharField(max_length=30, widget=forms.TextInput(
-                    {'class': "form-control", 'placeholder': "Last Name"}))
+                    {'class': "pg-input", 'placeholder': "Last name"}))
 
     def __init__(self, *args, **kwargs):
         if 'user' in kwargs:
@@ -231,30 +231,30 @@ class ProfileForm(forms.ModelForm):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.fields['first_name'].initial = user.first_name
         self.fields['first_name'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'First Name'}
+            {'class': "pg-input", 'placeholder': 'First name'}
         )
         self.fields['last_name'].initial = user.last_name
         self.fields['last_name'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'Last Name'}
+            {'class': "pg-input", 'placeholder': 'Last name'}
         )
         self.fields['institute'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'Institute'}
+            {'class': "pg-input", 'placeholder': 'e.g. Indian Institute of Technology Bombay'}
         )
         self.fields['department'].widget.attrs.update(
-            {'class': "custom-select"}
+            {'class': "pg-input"}
         )
         self.fields['title'].widget.attrs.update(
-            {'class': "custom-select"}
+            {'class': "pg-input"}
         )
         self.fields['state'].widget.attrs.update(
-            {'class': "custom-select"}
+            {'class': "pg-input"}
         )
         self.fields['phone_number'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'Phone Number'}
+            {'class': "pg-input", 'placeholder': '9876543210'}
         )
         self.fields['position'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'Position'}
+            {'class': "pg-input"}
         )
         self.fields['location'].widget.attrs.update(
-            {'class': "form-control", 'placeholder': 'Location'}
+            {'class': "pg-input", 'placeholder': 'e.g. Mumbai'}
         )
