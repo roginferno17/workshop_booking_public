@@ -60,35 +60,35 @@
 </nav>
 
 <!-- ═══════════════════════════════════════════
-     HERO
+     PAGE HEADER
      ═══════════════════════════════════════════ -->
-<section class="dash-hero" style="padding-bottom: var(--space-10);">
-    <div class="dash-hero__shape dash-hero__shape--1"></div>
-    <div class="dash-hero__shape dash-hero__shape--2"></div>
-    <div class="dash-hero__shape dash-hero__shape--3"></div>
-
+<section class="page-header">
     <div class="pg-container">
-        <div class="dash-hero__content">
-            <a href="{% url 'workshop_app:dashboard' %}" class="propose-back">
-                <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Back to Dashboard
-            </a>
-
-            <!-- Profile hero card -->
-            <div class="profile-hero-card">
-                <div class="profile-avatar">
-                    <span>{{ user.first_name|make_list|first }}{{ user.last_name|make_list|first }}</span>
-                </div>
-                <div class="profile-hero-info">
-                    <span class="pg-badge pg-badge--violet">{{ profile.get_position_display|default:profile.position|capfirst }}</span>
-                    <h1>{{ user.get_full_name }}</h1>
-                    <p>
-                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        {{ user.email }}
-                    </p>
-                </div>
+        <a href="{% url 'workshop_app:dashboard' %}" class="page-header__back">
+            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to Dashboard
+        </a>
+        {% if Workshops %}
+        <!-- View mode: another user's profile -->
+        <div class="profile-hero-card">
+            <div class="profile-avatar">
+                <span>{{ coordinator_profile.user.first_name|make_list|first }}{{ coordinator_profile.user.last_name|make_list|first }}</span>
+            </div>
+            <div class="profile-hero-info">
+                <span class="pg-badge pg-badge--violet">{{ coordinator_profile.get_position_display|default:coordinator_profile.position|capfirst }}</span>
+                <h1>{{ coordinator_profile.user.get_full_name }}</h1>
+                <p>
+                    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    {{ coordinator_profile.user.email }}
+                </p>
             </div>
         </div>
+        {% else %}
+        <!-- Edit mode: own profile -->
+        <span class="pg-badge pg-badge--mint" style="margin-top: var(--space-4);">My Profile</span>
+        <h1>Manage Your <span style="color: var(--accent);">Profile</span></h1>
+        <p>Update your personal, institution, and location details from one place.</p>
+        {% endif %}
     </div>
 </section>
 
@@ -110,31 +110,52 @@
                 </div>
                 <div class="profile-details">
                     <div class="profile-detail-row">
-                        <span class="profile-detail-label">Full Name</span>
+                        <span class="profile-detail-label">
+                            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            Full Name
+                        </span>
                         <span class="profile-detail-value">{{ coordinator_profile.user.get_full_name }}</span>
                     </div>
                     <div class="profile-detail-row">
-                        <span class="profile-detail-label">Email</span>
+                        <span class="profile-detail-label">
+                            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            Email
+                        </span>
                         <span class="profile-detail-value">{{ coordinator_profile.user.email }}</span>
                     </div>
                     <div class="profile-detail-row">
-                        <span class="profile-detail-label">Institute</span>
+                        <span class="profile-detail-label">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            Institute
+                        </span>
                         <span class="profile-detail-value">{{ coordinator_profile.user.profile.institute }}</span>
                     </div>
                     <div class="profile-detail-row">
-                        <span class="profile-detail-label">Department</span>
+                        <span class="profile-detail-label">
+                            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                            Department
+                        </span>
                         <span class="profile-detail-value">{{ coordinator_profile.user.profile.department|capfirst }}</span>
                     </div>
                     <div class="profile-detail-row">
-                        <span class="profile-detail-label">Phone</span>
+                        <span class="profile-detail-label">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            Phone
+                        </span>
                         <span class="profile-detail-value">{{ coordinator_profile.user.profile.phone_number }}</span>
                     </div>
                     <div class="profile-detail-row">
-                        <span class="profile-detail-label">Location</span>
+                        <span class="profile-detail-label">
+                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Location
+                        </span>
                         <span class="profile-detail-value">{{ coordinator_profile.user.profile.location }}</span>
                     </div>
                     <div class="profile-detail-row">
-                        <span class="profile-detail-label">Position</span>
+                        <span class="profile-detail-label">
+                            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                            Position
+                        </span>
                         <span class="profile-detail-value">{{ coordinator_profile.user.profile.position|capfirst }}</span>
                     </div>
                 </div>
@@ -182,50 +203,74 @@
 
 {% else %}
 <!-- ═══════════════════════════════════════════
-     EDIT MODE — Own profile (Signup-inspired)
+     EDIT MODE — Own profile
      ═══════════════════════════════════════════ -->
 <div class="dash-body">
     <div class="pg-container">
         <div class="profile-layout">
 
-            <!-- ─── Edit Form ─── -->
+            <!-- ─── Main form card ─── -->
             <div class="profile-form-area">
-                <form action="" method="post" id="profile-form">
-                    {% csrf_token %}
+                <div class="dash-card">
+                    <div class="dash-card__header">
+                        <h2>
+                            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            Edit Profile
+                        </h2>
+                    </div>
 
-                    <!-- Error messages -->
-                    {% if form.errors %}
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <div class="profile-alert">
-                                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                                    {{ field.label }}: {{ error|escape }}
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
-                    {% endif %}
+                    <form action="" method="post" id="profile-form">
+                        {% csrf_token %}
 
-                    <!-- ─── Section 1: Personal Information ─── -->
-                    <div class="profile-card" id="section-personal">
-                        <div class="profile-card__section-title">
-                            <span class="profile-card__section-icon" style="background: var(--accent);">
+                        <!-- Info banner -->
+                        <div class="profile-info-banner">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            <p>Keep your profile up-to-date so we can connect you with the right workshops and instructors at your institution.</p>
+                        </div>
+
+                        <!-- Error messages -->
+                        {% if form.errors %}
+                        <div class="profile-errors">
+                            <div class="profile-errors__header">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                Please fix the following:
+                            </div>
+                            <ul class="profile-errors__list">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                    <li>{{ field.label }}: {{ error|escape }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+
+                        <!-- ─── Section 1: Personal Information ─── -->
+                        <div class="profile-section-title">
+                            <span class="profile-section-icon" style="background: var(--accent);">
                                 <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                             </span>
                             Personal Information
                         </div>
 
-                        <div class="profile-field profile-field--title" style="max-width: 200px;">
+                        <div class="profile-field profile-field--title">
                             <label for="id_title">Title</label>
                             {{ form.title }}
                         </div>
 
                         <div class="profile-row">
                             <div class="profile-field">
-                                <label for="id_first_name">First Name</label>
+                                <label for="id_first_name">
+                                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    First Name
+                                </label>
                                 {{ form.first_name }}
                             </div>
                             <div class="profile-field">
-                                <label for="id_last_name">Last Name</label>
+                                <label for="id_last_name">
+                                    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    Last Name
+                                </label>
                                 {{ form.last_name }}
                             </div>
                         </div>
@@ -237,12 +282,12 @@
                             </label>
                             {{ form.phone_number }}
                         </div>
-                    </div>
 
-                    <!-- ─── Section 2: Institution & Location ─── -->
-                    <div class="profile-card" id="section-institution">
-                        <div class="profile-card__section-title">
-                            <span class="profile-card__section-icon" style="background: var(--secondary);">
+                        <!-- ─── Section 2: Institution & Location ─── -->
+                        <hr class="profile-divider">
+
+                        <div class="profile-section-title">
+                            <span class="profile-section-icon" style="background: var(--secondary);">
                                 <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                             </span>
                             Institution Details
@@ -265,16 +310,19 @@
                                 {{ form.department }}
                             </div>
                             <div class="profile-field">
-                                <label for="id_position">Position</label>
+                                <label for="id_position">
+                                    <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                                    Position
+                                </label>
                                 {{ form.position }}
                             </div>
                         </div>
-                    </div>
 
-                    <!-- ─── Section 3: Location ─── -->
-                    <div class="profile-card" id="section-location">
-                        <div class="profile-card__section-title">
-                            <span class="profile-card__section-icon" style="background: var(--quaternary);">
+                        <!-- ─── Section 3: Location ─── -->
+                        <hr class="profile-divider">
+
+                        <div class="profile-section-title">
+                            <span class="profile-section-icon" style="background: var(--quaternary);">
                                 <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                             </span>
                             Location
@@ -289,74 +337,123 @@
                                 {{ form.location }}
                             </div>
                             <div class="profile-field">
-                                <label for="id_state">State</label>
+                                <label for="id_state">
+                                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                    State
+                                </label>
                                 {{ form.state }}
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Submit -->
-                    <div class="profile-actions">
-                        <button type="submit" class="btn-candy profile-submit" id="profile-submit">
-                            Save Changes
-                            <span class="btn-arrow">
-                                <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </span>
-                        </button>
-                        <a href="{% url 'workshop_app:dashboard' %}" class="btn-outline">
-                            Cancel
-                        </a>
-                    </div>
-                </form>
+                        <!-- Submit -->
+                        <div class="profile-actions">
+                            <button type="submit" class="btn-candy profile-submit" id="profile-submit">
+                                Save Changes
+                                <span class="btn-arrow">
+                                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                </span>
+                            </button>
+                            <a href="{% url 'workshop_app:dashboard' %}" class="btn-outline">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <!-- ─── Quick Actions sidebar ─── -->
+            <!-- ─── Sidebar ─── -->
             <div class="profile-sidebar">
-                <div class="dash-card profile-sidebar-card">
+
+                <!-- Profile completion meter -->
+                <div class="dash-card profile-meter" id="profile-completion">
+                    <div class="profile-meter__header">
+                        <span class="profile-meter__label">Profile Completion</span>
+                        <span class="profile-meter__pct" id="completion-pct">0%</span>
+                    </div>
+                    <div class="profile-meter__track">
+                        <div class="profile-meter__fill" id="completion-fill" style="width: 0%;"></div>
+                    </div>
+                    <p class="profile-meter__hint" id="completion-hint">Fill in all fields to complete your profile.</p>
+                </div>
+
+                <!-- Quick Actions (matches propose-tips pattern) -->
+                <div class="dash-card">
                     <div class="dash-card__header">
                         <h2>
                             <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                             Quick Actions
                         </h2>
                     </div>
-                    <div class="dash-actions">
-                        <a href="{% url 'password_change' %}" class="dash-action">
-                            <div class="dash-action__icon" style="background: var(--accent);">
+                    <div class="profile-tips__list">
+                        <a href="{% url 'password_change' %}" class="profile-tip" style="text-decoration: none;">
+                            <div class="profile-tip__icon" style="background: var(--accent);">
                                 <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                             </div>
                             <div>
-                                <div class="dash-action__title">Change Password</div>
-                                <div class="dash-action__desc">Update your security settings</div>
+                                <strong>Change Password</strong>
+                                <p>Update your security credentials</p>
                             </div>
                         </a>
-                        <a href="{% url 'workshop_app:dashboard' %}" class="dash-action">
-                            <div class="dash-action__icon" style="background: var(--tertiary);">
+                        <a href="{% url 'workshop_app:dashboard' %}" class="profile-tip" style="text-decoration: none;">
+                            <div class="profile-tip__icon" style="background: var(--tertiary);">
                                 <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                             </div>
                             <div>
-                                <div class="dash-action__title">Dashboard</div>
-                                <div class="dash-action__desc">Return to your overview</div>
+                                <strong>Dashboard</strong>
+                                <p>Return to your overview</p>
                             </div>
                         </a>
-                        <a href="{% url 'statistics_app:public' %}" class="dash-action">
-                            <div class="dash-action__icon" style="background: var(--quaternary);">
+                        <a href="{% url 'statistics_app:public' %}" class="profile-tip" style="text-decoration: none;">
+                            <div class="profile-tip__icon" style="background: var(--quaternary);">
                                 <svg viewBox="0 0 24 24"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
                             </div>
                             <div>
-                                <div class="dash-action__title">View Statistics</div>
-                                <div class="dash-action__desc">Workshop data across India</div>
+                                <strong>View Statistics</strong>
+                                <p>Workshop data across India</p>
                             </div>
                         </a>
                     </div>
                 </div>
 
-                <!-- Profile completion hint -->
-                <div class="profile-hint-card">
-                    <div class="profile-hint-card__icon">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                <!-- Helpful tips -->
+                <div class="dash-card">
+                    <div class="dash-card__header">
+                        <h2>
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            Helpful Tips
+                        </h2>
                     </div>
-                    <p>Keep your profile up-to-date to ensure workshop communications reach you correctly.</p>
+                    <div class="profile-tips__list">
+                        <div class="profile-tip">
+                            <div class="profile-tip__icon" style="background: var(--accent);">
+                                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div>
+                                <strong>Accurate info matters</strong>
+                                <p>Your institute name is visible to workshop instructors when reviewing proposals.</p>
+                            </div>
+                        </div>
+                        <div class="profile-tip">
+                            <div class="profile-tip__icon" style="background: var(--tertiary);">
+                                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <div>
+                                <strong>Email is fixed</strong>
+                                <p>Your sign-in email cannot be changed. Contact support if needed.</p>
+                            </div>
+                        </div>
+                        <div class="profile-tip">
+                            <div class="profile-tip__icon" style="background: var(--secondary);">
+                                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </div>
+                            <div>
+                                <strong>Stay secure</strong>
+                                <p>Change your password regularly using the quick action above.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
         </div>
@@ -376,6 +473,22 @@
 (function() {
     var overlay = document.getElementById('page-transition');
     var textEl = overlay.querySelector('.page-transition__text');
+    var dashPage = document.querySelector('.dash-page');
+
+    function resetProfileScroll() {
+        window.scrollTo(0, 0);
+        if (dashPage) {
+            dashPage.scrollTop = 0;
+        }
+    }
+
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
+    resetProfileScroll();
+    window.requestAnimationFrame(resetProfileScroll);
+    window.addEventListener('load', resetProfileScroll);
 
     var transName = sessionStorage.getItem('pageTransitionName');
     if (transName) {
@@ -442,22 +555,60 @@
 <!-- Custom dropdown component (must run after data attributes are set) -->
 <script src="{% static 'workshop_app/js/pg-dropdown.js' %}"></script>
 
-<!-- Animate sections on scroll -->
+<!-- Style Django form widgets (matches propose page) -->
+<script>
+document.querySelectorAll('.profile-field select, .profile-field input').forEach(function(el) {
+    el.classList.remove('form-control');
+    el.classList.add('pg-input');
+});
+</script>
+
+<!-- Profile completion meter -->
 <script>
 (function() {
-    var cards = document.querySelectorAll('.profile-card');
-    if (!cards.length) return;
+    var form = document.getElementById('profile-form');
+    if (!form) return;
 
-    var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('profile-card--visible');
-                observer.unobserve(entry.target);
+    var fields = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], select');
+    var fill = document.getElementById('completion-fill');
+    var pct = document.getElementById('completion-pct');
+    var hint = document.getElementById('completion-hint');
+
+    function computeCompletion() {
+        var total = 0, filled = 0;
+        fields.forEach(function(field) {
+            if (field.id === 'id_title') return; // title is optional-ish
+            total++;
+            if (field.value && field.value.trim() !== '' && field.value !== '---------') {
+                filled++;
             }
         });
-    }, { threshold: 0.15 });
+        var percent = total > 0 ? Math.round((filled / total) * 100) : 0;
+        fill.style.width = percent + '%';
+        pct.textContent = percent + '%';
 
-    cards.forEach(function(card) { observer.observe(card); });
+        if (percent === 100) {
+            hint.textContent = '✨ Your profile is complete!';
+        } else if (percent >= 75) {
+            hint.textContent = 'Almost there! Just a few more fields.';
+        } else if (percent >= 50) {
+            hint.textContent = 'Good progress. Keep going!';
+        } else {
+            hint.textContent = 'Fill in all fields to complete your profile.';
+        }
+    }
+
+    // Run on load
+    setTimeout(computeCompletion, 300);
+
+    // Re-compute on input change
+    fields.forEach(function(field) {
+        field.addEventListener('change', computeCompletion);
+        field.addEventListener('input', computeCompletion);
+    });
+
+    // Also listen for custom dropdown changes
+    document.addEventListener('pg-dropdown:change', computeCompletion);
 })();
 </script>
 

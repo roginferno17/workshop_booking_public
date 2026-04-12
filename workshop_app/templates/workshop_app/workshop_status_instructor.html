@@ -61,23 +61,17 @@
 </nav>
 
 <!-- ═══════════════════════════════════════════
-     HERO
+     PAGE HEADER
      ═══════════════════════════════════════════ -->
-<section class="dash-hero" style="padding-bottom: var(--space-10);">
-    <div class="dash-hero__shape dash-hero__shape--1"></div>
-    <div class="dash-hero__shape dash-hero__shape--2"></div>
-    <div class="dash-hero__shape dash-hero__shape--3"></div>
-
+<section class="page-header">
     <div class="pg-container">
-        <div class="dash-hero__content">
-            <a href="{% url 'workshop_app:dashboard' %}" class="ws-back">
-                <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Back to Dashboard
-            </a>
-            <span class="pg-badge pg-badge--violet" style="margin-top: var(--space-4);">Instructor</span>
-            <h1>Workshop <span style="color: var(--tertiary);">Status</span></h1>
-            <p>Review and accept workshop proposals from coordinators.</p>
-        </div>
+        <a href="{% url 'workshop_app:dashboard' %}" class="page-header__back">
+            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Back to Dashboard
+        </a>
+        <span class="pg-badge pg-badge--violet" style="margin-top: var(--space-4);">Instructor</span>
+        <h1>Workshop <span style="color: var(--accent);">Status</span></h1>
+        <p>Review and accept workshop proposals from coordinators.</p>
     </div>
 </section>
 
