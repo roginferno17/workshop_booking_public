@@ -27,29 +27,29 @@
 <nav class="pg-nav" id="main-nav" style="background: rgba(255,253,245,0.95);">
     <div class="pg-container">
         <div class="pg-nav__inner">
-            <a href="/" class="pg-nav__logo">
+            <a href="{% url 'workshop_app:dashboard' %}" class="pg-nav__logo">
                 <span class="pg-nav__logo-dot"></span>
                 FOSSEE Workshops
             </a>
             <ul class="pg-nav__links" id="nav-links">
                 <li><a href="/" class="pg-nav__link">Home</a></li>
                 <li><a href="{% url 'statistics_app:public' %}" class="pg-nav__link">Statistics</a></li>
+                {% if not request.user|has_group:"instructor" %}
+                <li><a href="{% url 'workshop_app:propose_workshop' %}" class="pg-nav__link">Propose Workshop</a></li>
+                {% endif %}
                 <li><a href="{% url 'workshop_app:workshop_type_list' %}" class="pg-nav__link pg-nav__link--active">Workshop Types</a></li>
-                {% if request.user.is_authenticated %}
                 <li class="pg-nav__cta">
-                    <a href="{% url 'workshop_app:dashboard' %}" class="btn-outline" style="padding: 6px 16px; min-height: 38px; font-size: 0.85rem;">
-                        Dashboard
+                    <a href="{% url 'workshop_app:view_own_profile' %}" class="btn-outline" style="padding: 6px 16px; min-height: 38px; font-size: 0.85rem;">
+                        <svg viewBox="0 0 24 24" fill="none" style="width:16px;height:16px;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        {{ user.first_name }}
                     </a>
                     <a href="{% url 'workshop_app:logout' %}" class="btn-candy" style="padding: 6px 16px; min-height: 38px; font-size: 0.85rem;">
                         Sign Out
                     </a>
                 </li>
-                {% else %}
-                <li class="pg-nav__cta">
-                    <a href="{% url 'workshop_app:login' %}" class="btn-outline" style="padding: 6px 16px; min-height: 38px; font-size: 0.85rem;">Sign In</a>
-                    <a href="{% url 'workshop_app:register' %}" class="btn-candy" style="padding: 6px 16px; min-height: 38px; font-size: 0.85rem;">Register</a>
-                </li>
-                {% endif %}
             </ul>
             <button class="pg-nav__hamburger" id="nav-toggle" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
