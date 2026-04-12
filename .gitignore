@@ -66,3 +66,9 @@ htmlcov/
 #images/gif
 *.png
 *.gif
+
+# Code Review Graph
+.code-review-graph/
+
+# Markdown files
+*.md

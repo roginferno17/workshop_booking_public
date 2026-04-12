@@ -1,0 +1,693 @@
+/* =============================================================
+   SIGN OUT CONFIRMATION PAGE — Page-specific styles
+   Built on design-tokens.css + playful-geometric.css
+   ============================================================= */
+
+/* ── Layout ───────────────────────────────────── */
+.signout-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  background: var(--bg);
+}
+
+/* ── Left Panel (Decorative) ──────────────────── */
+.signout-panel {
+  background: var(--fg);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-16);
+}
+
+.signout-panel__content {
+  position: relative;
+  z-index: 2;
+  max-width: 440px;
+}
+
+.signout-panel__logo {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--text-xl);
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-16);
+}
+
+.signout-panel__logo-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.signout-panel h2 {
+  color: white;
+  font-size: var(--text-4xl);
+  line-height: 1.1;
+  margin-bottom: var(--space-6);
+}
+
+.signout-panel p {
+  color: rgba(255,255,255,0.6);
+  font-size: var(--text-md);
+  line-height: 1.7;
+  margin-bottom: var(--space-12);
+}
+
+/* Decorative shapes on panel */
+.signout-panel__shape {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.signout-panel__shape--1 {
+  width: 320px;
+  height: 320px;
+  background: var(--secondary);
+  opacity: 0.08;
+  top: -100px;
+  right: -100px;
+  animation: shape-breathe 8s ease-in-out infinite;
+}
+
+.signout-panel__shape--2 {
+  width: 200px;
+  height: 200px;
+  background: var(--tertiary);
+  opacity: 0.06;
+  bottom: -60px;
+  left: -40px;
+  animation: shape-breathe 10s ease-in-out 2s infinite;
+}
+
+.signout-panel__shape--3 {
+  width: 140px;
+  height: 140px;
+  background: var(--accent);
+  opacity: 0.1;
+  top: 35%;
+  right: 8%;
+  animation: shape-breathe 6s ease-in-out 1s infinite;
+}
+
+@keyframes shape-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+
+/* Dot pattern on panel */
+.signout-panel__dots {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+  bottom: 15%;
+  left: 8%;
+  z-index: 0;
+}
+
+/* Floating mini cards on panel */
+.signout-panel__float {
+  position: absolute;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  z-index: 1;
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.signout-panel__float--1 {
+  bottom: 18%;
+  right: 6%;
+  animation: float 5s ease-in-out infinite;
+}
+
+.signout-panel__float--2 {
+  top: 14%;
+  right: 12%;
+  animation: float 6s ease-in-out 1s infinite;
+}
+
+.signout-panel__float--3 {
+  top: 50%;
+  left: 5%;
+  animation: float 7s ease-in-out 2s infinite;
+}
+
+.signout-panel__float-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.signout-panel__float-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: white;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.signout-panel__float-text {
+  font-family: var(--font-heading);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  white-space: nowrap;
+}
+
+/* Animated wave line */
+.signout-panel__wave {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 0;
+  opacity: 0.1;
+}
+
+.signout-panel__wave svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Right Panel (Confirmation) ──────────────── */
+.signout-form-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12);
+  position: relative;
+  animation: panel-slide-in 0.6s var(--ease-smooth) both;
+}
+
+.signout-form-wrap {
+  width: 100%;
+  max-width: 460px;
+  text-align: center;
+}
+
+/* Decorative shapes on form panel */
+.signout-form-deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.signout-form-deco--triangle {
+  top: 10%;
+  right: 8%;
+  animation: float 7s ease-in-out infinite;
+}
+
+.signout-form-deco--circle {
+  bottom: 14%;
+  left: 6%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--quaternary);
+  border: var(--border-w) solid var(--fg);
+  opacity: 0.5;
+  animation: float 5s ease-in-out 1.5s infinite;
+}
+
+.signout-form-deco--plus {
+  bottom: 28%;
+  right: 5%;
+  animation: float 6s ease-in-out 0.5s infinite;
+}
+
+.signout-form-deco--ring {
+  top: 20%;
+  left: 8%;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid var(--secondary);
+  opacity: 0.3;
+  animation: float 8s ease-in-out 1s infinite;
+}
+
+/* ── Icon ─────────────────────────────────────── */
+.signout-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(244, 114, 182, 0.12), rgba(139, 92, 246, 0.12));
+  border: var(--border-w) solid var(--fg);
+  box-shadow: 6px 6px 0 var(--secondary);
+  margin-bottom: var(--space-10);
+  position: relative;
+  animation: pop-in 0.5s var(--ease-bounce) both 0.2s;
+}
+
+.signout-icon-wrap svg {
+  width: 38px;
+  height: 38px;
+  stroke: var(--secondary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* Orbiting dot around icon */
+.signout-icon-wrap::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--tertiary);
+  border-radius: 50%;
+  border: 2px solid var(--fg);
+  top: -3px;
+  right: 2px;
+  animation: orbit-pulse 2s ease-in-out infinite;
+}
+
+@keyframes orbit-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.3); opacity: 0.6; }
+}
+
+/* ── Header ───────────────────────────────────── */
+.signout-header {
+  margin-bottom: var(--space-8);
+  animation: pop-in 0.5s var(--ease-bounce) both 0.3s;
+}
+
+.signout-header h1 {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.02em;
+}
+
+.signout-header p {
+  font-size: var(--text-base);
+  color: var(--muted-fg);
+  line-height: 1.7;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+/* ── Card ─────────────────────────────────────── */
+.signout-card {
+  background: var(--card-bg);
+  border: var(--border-w) solid var(--fg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-10);
+  animation: pop-in 0.5s var(--ease-bounce) both 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle gradient stripe at top of card */
+.signout-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--secondary), var(--tertiary));
+}
+
+/* User info display */
+.signout-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-8);
+  text-align: left;
+}
+
+.signout-user__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  border: var(--border-w) solid var(--fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--text-lg);
+  color: white;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.signout-user__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.signout-user__name {
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--fg);
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.signout-user__email {
+  font-size: var(--text-sm);
+  color: var(--muted-fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Status dot */
+.signout-user__status {
+  width: 10px;
+  height: 10px;
+  background: var(--success);
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--success);
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3); }
+  50%      { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.1); }
+}
+
+/* Message */
+.signout-message {
+  font-size: var(--text-sm);
+  color: var(--muted-fg);
+  line-height: 1.7;
+  margin-bottom: var(--space-8);
+}
+
+.signout-message strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+/* Checklist of what happens */
+.signout-checklist {
+  list-style: none;
+  margin-bottom: var(--space-8);
+  text-align: left;
+}
+
+.signout-checklist li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  font-size: var(--text-sm);
+  color: var(--muted-fg);
+}
+
+.signout-checklist li svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  stroke: var(--quaternary);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* ── Buttons ──────────────────────────────────── */
+.signout-actions {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.signout-actions .btn-candy,
+.signout-actions .btn-outline {
+  flex: 1;
+  justify-content: center;
+}
+
+/* Red/danger sign out button */
+.btn-candy--danger {
+  background: #EF4444;
+}
+.btn-candy--danger:hover {
+  background: #DC2626;
+}
+
+/* ── Back link ────────────────────────────────── */
+.signout-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--muted-fg);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: var(--border-w) solid var(--border);
+  transition: all var(--duration-fast) var(--ease-smooth);
+  margin-bottom: var(--space-6);
+}
+.signout-back:hover {
+  background: var(--muted);
+  color: var(--fg);
+  border-color: var(--fg);
+}
+.signout-back svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* ── Footer note ──────────────────────────────── */
+.signout-footer {
+  margin-top: var(--space-8);
+  font-size: var(--text-xs);
+  color: var(--muted-fg);
+  animation: pop-in 0.5s var(--ease-bounce) both 0.5s;
+}
+
+.signout-footer a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.signout-footer a:hover {
+  color: var(--secondary);
+}
+
+
+/* ══════════════════════════════════════════════════
+   SIGNED-OUT SUCCESS STATE
+   ══════════════════════════════════════════════════ */
+
+.signout-success-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(52, 211, 153, 0.12));
+  border: var(--border-w) solid var(--fg);
+  box-shadow: 6px 6px 0 var(--quaternary);
+  margin-bottom: var(--space-10);
+  animation: pop-in 0.5s var(--ease-bounce) both 0.2s;
+}
+
+.signout-success-icon svg {
+  width: 40px;
+  height: 40px;
+  stroke: var(--quaternary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+/* Checkmark draw animation */
+.signout-success-icon svg .check-path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: draw-check 0.8s ease-out 0.5s forwards;
+}
+
+@keyframes draw-check {
+  to { stroke-dashoffset: 0; }
+}
+
+.signout-success-card {
+  background: var(--card-bg);
+  border: var(--border-w) solid var(--fg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-10);
+  animation: pop-in 0.5s var(--ease-bounce) both 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.signout-success-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--quaternary), var(--accent), var(--tertiary));
+}
+
+.signout-success-text {
+  font-size: var(--text-base);
+  color: var(--muted-fg);
+  line-height: 1.7;
+  margin-bottom: var(--space-8);
+}
+
+/* Countdown timer */
+.signout-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--muted-fg);
+  margin-bottom: var(--space-6);
+}
+
+.signout-countdown__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--text-base);
+  color: var(--accent);
+}
+
+
+/* ── Responsive ───────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .signout-page {
+    grid-template-columns: 1fr 1.8fr;
+  }
+  .signout-panel {
+    padding: var(--space-10);
+  }
+  .signout-panel h2 {
+    font-size: var(--text-2xl);
+  }
+  .signout-panel__float--3 {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .signout-page {
+    grid-template-columns: 1fr;
+    background: var(--bg);
+  }
+  .signout-panel {
+    display: none;
+  }
+  .signout-form-panel {
+    padding: var(--space-8) var(--space-6);
+    min-height: 100vh;
+    background: var(--bg);
+    align-items: stretch;
+    justify-content: center;
+    text-align: center;
+  }
+  .signout-form-wrap {
+    max-width: 100%;
+  }
+  .signout-form-deco {
+    display: none;
+  }
+  .signout-header h1 {
+    font-size: var(--text-2xl);
+  }
+  .signout-card,
+  .signout-success-card {
+    padding: var(--space-6);
+  }
+  .signout-actions {
+    flex-direction: column-reverse;
+  }
+  .signout-user {
+    flex-direction: column;
+    text-align: center;
+  }
+  .signout-checklist {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .signout-form-panel {
+    padding: var(--space-6) var(--space-4);
+  }
+  .signout-icon-wrap,
+  .signout-success-icon {
+    width: 72px;
+    height: 72px;
+    box-shadow: 4px 4px 0 var(--secondary);
+  }
+  .signout-icon-wrap svg,
+  .signout-success-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  .signout-header h1 {
+    font-size: var(--text-xl);
+  }
+}

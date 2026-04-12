@@ -538,21 +538,39 @@ p {
   pointer-events: none;
 }
 
-/* ── Scrollbar ────────────────────────────────── */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track {
+/* ── Scrollbar — hidden by default on all pages ── */
+html, body {
+  scrollbar-width: none;            /* Firefox */
+  -ms-overflow-style: none;         /* IE / Edge */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;                    /* Chrome / Safari */
+}
+
+/* ── Scrollbar — restored on .landing-page ────── */
+body.landing-page {
+  scrollbar-width: thin;                      /* Firefox */
+  scrollbar-color: var(--accent) var(--bg);   /* Firefox */
+  -ms-overflow-style: auto;                   /* IE / Edge */
+}
+body.landing-page::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+}
+body.landing-page::-webkit-scrollbar-track {
   background: var(--bg);
   margin: 6px 0;
 }
-::-webkit-scrollbar-thumb {
+body.landing-page::-webkit-scrollbar-thumb {
   background: var(--accent);
   border-radius: var(--radius-full);
   border: 2px solid var(--bg);
 }
-::-webkit-scrollbar-thumb:hover {
+body.landing-page::-webkit-scrollbar-thumb:hover {
   background: var(--secondary);
 }
-::-webkit-scrollbar-button {
+body.landing-page::-webkit-scrollbar-button {
   display: none;
   height: 0;
   width: 0;

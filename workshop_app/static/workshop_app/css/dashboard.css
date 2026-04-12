@@ -10,11 +10,6 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  scrollbar-width: none;          /* Firefox */
-  -ms-overflow-style: none;       /* IE/Edge */
-}
-.dash-page::-webkit-scrollbar {
-  display: none;                  /* Chrome/Safari */
 }
 
 /* ── Hero / Greeting ─────────────────────────── */

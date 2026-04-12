@@ -92,9 +92,11 @@ def user_login(request):
 
 
 def user_logout(request):
-    """Logout"""
-    logout(request)
-    return render(request, 'workshop_app/logout.html')
+    """Logout — GET shows confirmation, POST performs the actual logout"""
+    if request.method == 'POST':
+        logout(request)
+        return render(request, 'workshop_app/logout.html')
+    return render(request, 'workshop_app/signout_confirm.html')
 
 
 def activate_user(request, key=None):
