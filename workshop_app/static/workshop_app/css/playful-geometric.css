@@ -546,6 +546,9 @@ html, body {
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;                    /* Chrome / Safari */
+  width: 0;
+  height: 0;
+  background: transparent;
 }
 
 /* ── Scrollbar — restored on .landing-page ────── */
