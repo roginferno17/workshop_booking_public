@@ -1,42 +1,54 @@
-<p align="center">
-  <img src="https://img.shields.io/badge/Django-3.0-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django 3.0" />
-  <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3" />
-  <img src="https://img.shields.io/badge/License-GPL_v3-blue?style=for-the-badge" alt="License GPL v3" />
-  <img src="https://img.shields.io/badge/Design-Playful_Geometric-8B5CF6?style=for-the-badge" alt="Playful Geometric" />
-</p>
+# Workshop Booking Portal
 
-# 🎓 FOSSEE Workshop Booking Portal
+> A platform for coordinators to propose, book, and manage free FOSS workshops conducted by IIT Bombay instructors — built with Django and a custom Playful Geometric design system.
 
-> A platform for coordinators to **propose, book, and manage** free FOSS (Free and Open Source Software) workshops conducted by **IIT Bombay** instructors — built with Django and a modern **Playful Geometric** design system.
+![Landing Page](screenshot-landing.png)
 
 ---
 
-## ✨ Highlights
+## What It Does
+
+This portal connects **workshop coordinators** with **IIT Bombay instructors** to streamline the booking of free FOSS (Free and Open Source Software) workshops. Coordinators can browse, propose, and track workshops. Instructors manage their availability and respond to proposals. A guest demo mode lets anyone explore the full dashboard instantly with one command.
+
+---
+
+## Features
 
 | Feature | Description |
-|---------|-------------|
-| 📋 **Workshop Management** | Instructors can create, accept, reject, postpone, or delete workshops |
-| 📊 **Statistics Dashboard** | Monthly counts, instructor/coordinator profile stats, upcoming workshops |
-| 🗺️ **Geographic Visualization** | Workshops plotted over the Map of India |
-| 📈 **Analytics** | Pie charts by workshop type, profile comment system |
-| 🎨 **Playful Geometric UI** | Modern design system with custom components, animations, and micro-interactions |
-| 👤 **Guest Demo Mode** | One-command seeding to explore the full dashboard instantly |
+|---|---|
+| Workshop Management | Instructors can create, accept, reject, postpone, or delete workshops |
+| Statistics Dashboard | Monthly counts, instructor/coordinator profile stats, upcoming sessions |
+| Geographic Visualization | Workshops plotted on a Map of India |
+| Analytics | Pie charts by workshop type, profile comment system |
+| Playful Geometric UI | Custom design system with animations and micro-interactions |
+| Guest Demo Mode | One-command seeding to explore the full dashboard instantly |
 
 ---
 
-## 🚀 Getting Started
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Backend | Django 3.2 LTS, Python 3.10 / 3.11 |
+| Database | SQLite (dev), configurable for PostgreSQL |
+| Frontend | Vanilla HTML / CSS / JS, no external CSS frameworks |
+| Styling | CSS Custom Properties (design tokens) |
+| Analytics | Pandas |
+| Config | python-decouple |
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
-| Tool | Version |
-|------|---------|
-| **Python** | 3.8 or higher |
-| **pip** | Latest recommended |
-| **Git** | Any recent version |
+- Python **3.10 or 3.11** (Python 3.12+ is not supported by this dependency set)
+- pip (latest recommended)
+- Git (any recent version)
 
 ---
 
-### Step 1 — Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/krishlazybuilds-commits/workshop_booking_public.git
@@ -45,87 +57,87 @@ cd workshop_booking_public
 
 ---
 
-### Step 2 — Create & Activate a Virtual Environment
+### 2. Create & Activate a Virtual Environment
 
-**Windows (PowerShell):**
-
+**Windows (PowerShell)**
 ```powershell
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
 
-**Windows (Command Prompt):**
-
+**Windows (Command Prompt)**
 ```cmd
 python -m venv venv
 venv\Scripts\activate.bat
 ```
 
-**macOS / Linux:**
-
+**macOS / Linux**
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-> **Tip:** You should see `(venv)` at the beginning of your terminal prompt once the virtual environment is active.
+You should see `(venv)` at the start of your terminal prompt once active.
 
 ---
 
-### Step 3 — Install Dependencies
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-This installs:
+If you already have a virtual environment with Django 5.x, force-reinstall the pinned dependencies:
+
+```bash
+pip install --upgrade --force-reinstall -r requirements.txt
+```
+
+Key packages installed:
 
 | Package | Purpose |
-|---------|---------|
-| `Django>=3.0.7` | Web framework |
-| `pandas` | Data processing for statistics & analytics |
+|---|---|
+| `Django>=3.2,<4` | Web framework |
+| `pandas` | Data processing for analytics |
 | `python-decouple>=3.3` | Environment variable management |
-| `django-recurrence` | Recurring event support |
-| `pyaml` | YAML configuration parsing |
+| `django-recurrence==1.11.1` | Recurring event support |
 | `coverage` | Test coverage reporting |
 
 ---
 
-### Step 4 — Configure Environment Variables
+### 4. Configure Environment Variables
 
-1. Copy the sample environment file:
+Copy the sample env file:
 
-   ```bash
-   cp .sampleenv .env
-   ```
+```bash
+cp .sampleenv .env
+```
 
-2. Edit `.env` with your settings (only needed for **production** — defaults work for local dev):
+For local development, the defaults work out of the box:
 
-   ```env
-   DB_ENGINE=sqlite3           # Default, no change needed for dev
-   DB_NAME=db.sqlite3          # Default, no change needed for dev
-   DB_USER=                    # Leave blank for SQLite
-   DB_PASSWORD=                # Leave blank for SQLite
-   DB_HOST=localhost
-   DB_PORT=
-   ```
+```env
+DB_ENGINE=sqlite3
+DB_NAME=db.sqlite3
+DB_USER=
+DB_PASSWORD=
+DB_HOST=localhost
+DB_PORT=
+```
 
-3. Edit `local_settings.py` with email credentials (can use placeholder values for local dev since `EMAIL_BACKEND` defaults to console):
+Edit `local_settings.py` with email credentials (placeholder values are fine for local dev since emails print to the console by default):
 
-   ```python
-   EMAIL_HOST = 'smtp.gmail.com'       # Or your SMTP host
-   EMAIL_PORT = '587'
-   EMAIL_HOST_USER = 'your@email.com'
-   EMAIL_HOST_PASSWORD = 'your-password'
-   EMAIL_USE_TLS = True
-   SENDER_EMAIL = 'your@email.com'
-   ```
-
-> **Note:** In development, emails are printed to the console by default (`EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'`), so placeholder values work fine.
+```python
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'your@email.com'
+EMAIL_HOST_PASSWORD = 'your-password'
+EMAIL_USE_TLS = True
+SENDER_EMAIL = 'your@email.com'
+```
 
 ---
 
-### Step 5 — Run Database Migrations
+### 5. Run Migrations
 
 ```bash
 python manage.py makemigrations
@@ -134,7 +146,7 @@ python manage.py migrate
 
 ---
 
-### Step 6 — Create a Superuser (Admin)
+### 6. Create a Superuser
 
 ```bash
 python manage.py createsuperuser
@@ -144,7 +156,7 @@ Follow the prompts to set a username, email, and password.
 
 ---
 
-### Step 7 — Seed the Guest Demo User *(Recommended)*
+### 7. Seed the Guest Demo User *(Recommended)*
 
 ```bash
 python manage.py seed_guest
@@ -154,47 +166,44 @@ This creates a ready-to-use demo account pre-loaded with sample data:
 
 | | |
 |---|---|
-| **Username** | `guest` |
-| **Password** | `fossee@guest` |
+| Username | `guest` |
+| Password | `fossee@guest` |
 
-**What gets seeded:**
+What gets seeded:
+- A guest coordinator profile, fully filled out
+- 3 Workshop Types (Python, Scilab, DWSIM)
+- 5 sample workshops with mixed Accepted/Pending statuses
 
-- ✅ A guest user with a fully filled-out coordinator profile
-- ✅ 3 Workshop Types (Python, Scilab, DWSIM) — if none exist yet
-- ✅ 5 sample workshops (mix of Accepted & Pending statuses)
-
-> **Safe to run multiple times** — it resets the guest user and their workshops while preserving all other data.
+Safe to run multiple times — it resets only the guest user and their workshops.
 
 ---
 
-### Step 8 — Run the Development Server
+### 8. Start the Development Server
 
 ```bash
 python manage.py runserver
 ```
 
-Open your browser and navigate to:
-
 | URL | Page |
-|-----|------|
+|---|---|
 | `http://localhost:8000/` | Landing page |
-| `http://localhost:8000/workshop/login/` | Sign in (use guest credentials or your superuser) |
+| `http://localhost:8000/workshop/login/` | Sign in |
 | `http://localhost:8000/admin/` | Django admin panel |
 
 ---
 
-### Step 9 — Initial Admin Setup
+### 9. Initial Admin Setup
 
-1. Navigate to `http://localhost:8000/admin/` and log in with your **superuser** credentials
+1. Go to `http://localhost:8000/admin/` and log in with your superuser credentials
 2. Under **Authentication and Authorization → Groups**, create a group called `instructor`
 3. Assign **all permissions** to the `instructor` group
-4. By default, new users are **coordinators** — use the admin panel to promote users:
-   - Change their profile `position` to `instructor`
+4. New users are coordinators by default. To promote a user to instructor:
+   - Set their profile `position` to `instructor`
    - Add them to the `instructor` group
 
 ---
 
-## 📋 Quick Reference — All Commands
+## Quick Reference
 
 ```bash
 # Clone
@@ -203,113 +212,96 @@ cd workshop_booking_public
 
 # Virtual environment
 python -m venv venv
-.\venv\Scripts\Activate.ps1          # Windows PowerShell
-# source venv/bin/activate           # macOS/Linux
+.\venv\Scripts\Activate.ps1       # Windows PowerShell
+# source venv/bin/activate         # macOS/Linux
 
-# Install dependencies
+# Install
 pip install -r requirements.txt
 
-# Database setup
+# Database
 python manage.py makemigrations
 python manage.py migrate
 
-# Create admin user
+# Admin user
 python manage.py createsuperuser
 
-# Seed demo data (optional but recommended)
+# Demo data
 python manage.py seed_guest
 
-# Start server
+# Run
 python manage.py runserver
 ```
 
 ---
 
-## 📁 Project Structure
+## User Roles
 
-```
-workshop_booking/
-├── workshop_app/                  # Core application
-│   ├── models.py                  # User profiles, workshops, comments, testimonials
-│   ├── forms.py                   # Registration, login, workshop forms
-│   ├── views.py                   # View controllers
-│   ├── urls.py                    # App URL routing
-│   ├── admin.py                   # Admin panel configuration
-│   ├── send_mails.py              # Email notification logic
-│   ├── reminder_script.py         # Workshop reminder automation
-│   ├── management/
-│   │   └── commands/
-│   │       └── seed_guest.py      # Guest demo user seeder
-│   ├── templates/
-│   │   └── workshop_app/
-│   │       ├── landing.html       # Landing / home page
-│   │       ├── login.html         # Sign-in page
-│   │       ├── register.html      # Sign-up page
-│   │       ├── dashboard.html     # User dashboard
-│   │       ├── propose_workshop.html
-│   │       ├── view_profile.html
-│   │       ├── workshop_status_coordinator.html
-│   │       ├── workshop_status_instructor.html
-│   │       └── ...                # + more templates
-│   ├── static/
-│   │   └── workshop_app/
-│   │       ├── css/
-│   │       │   ├── design-tokens.css       # Color, typography & spacing tokens
-│   │       │   ├── playful-geometric.css   # Design system components
-│   │       │   ├── dashboard.css           # Dashboard styles
-│   │       │   ├── landing.css             # Landing page styles
-│   │       │   ├── signin.css / signup.css  # Auth page styles
-│   │       │   ├── profile.css             # Profile page styles
-│   │       │   ├── statistics.css          # Statistics page styles
-│   │       │   └── ...                     # + more page-specific styles
-│   │       ├── js/
-│   │       │   ├── pg-dropdown.js          # Custom dropdown component
-│   │       │   └── ...                     # jQuery, Bootstrap, etc.
-│   │       └── video/
-│   │           └── geometric-bg.mp4        # Auth panel background video
-│   ├── templatetags/              # Custom Django template tags
-│   └── tests/                     # Unit & integration tests
-├── statistics_app/                # Workshop statistics & analytics
-│   ├── views.py                   # Stats views (charts, maps, tables)
-│   └── templates/                 # Statistics templates
-├── cms/                           # Content management system
-│   ├── models.py                  # CMS pages, banners
-│   └── views.py                   # CMS page rendering
-├── teams/                         # Team management
-│   ├── models.py                  # Team member model
-│   └── admin.py                   # Team admin panel
-├── workshop_portal/               # Django project configuration
-│   ├── settings.py                # Main settings
-│   ├── urls.py                    # Root URL configuration
-│   └── wsgi.py                    # WSGI entry point
-├── docs/                          # Documentation
-│   └── Getting_Started.md         # Legacy setup guide
-├── local_settings.py              # Email credentials (not committed)
-├── .sampleenv                     # Sample environment variables
-├── requirements.txt               # Python dependencies
-├── manage.py                      # Django management script
-├── .coveragerc                    # Test coverage configuration
-├── .travis.yml                    # CI configuration
-└── LICENSE                        # GNU GPL v3
-```
+### Instructor
+- Create workshops based on availability
+- Accept, reject, postpone, or delete proposals
+- View monthly statistics and upcoming sessions
+- Comment on coordinator profiles
+
+### Coordinator
+- Browse and book workshops from instructor posts
+- Propose custom workshop dates
+- Track workshop status and history
+
+### Guest (Demo)
+- Pre-seeded coordinator account for instant exploration
+- Login: `guest` / `fossee@guest`
 
 ---
 
-## 🎨 Design System — *Playful Geometric*
+## Screenshots
 
-The frontend is powered by a custom design system featuring:
+### Sign In
 
-- **Design Tokens** — Centralized CSS variables for colors, typography, spacing, shadows & radii
-- **Custom Dropdown Components** — Auto-converting `<select>` elements into styled comboboxes, pill selectors, and typeahead inputs with accent bars and keyboard navigation
-- **Interactive Card Grids** — Clickable icon cards replacing dropdown selects for better UX
-- **Page Transition Overlays** — Full-screen wipe animations with designer typography between auth pages
-- **Video Backgrounds** — Looping geometric animation on the sign-in/sign-up branding panels
-- **Responsive Layout** — Mobile-first grid layouts that gracefully collapse on smaller screens
+![Sign In](screenshot-signin.png)
 
-### Component Variants
+### Register
+
+![Register](screenshot-register.png)
+
+### Dashboard
+
+Once logged in, you land on your coordinator dashboard showing total, accepted, pending, and upcoming workshops at a glance.
+
+![Dashboard](screenshot-dashboard.png)
+
+### Propose a Workshop
+
+Select a workshop type and a preferred date. Proposals only take a minute to fill out.
+
+![Propose Workshop](screenshot-propose.png)
+
+### Workshop Types
+
+Browse the available workshop catalog — Python, Scilab, DWSIM, and more — with durations and full descriptions.
+
+![Workshop Types](screenshot-workshop-types.png)
+
+### Statistics
+
+Filter workshops by date range, type, or state. Export results as CSV or view as a chart.
+
+![Statistics](screenshot-statistics.png)
+
+---
+
+## Design System — Playful Geometric
+
+The frontend uses a custom design system with no external CSS frameworks.
+
+- **Design Tokens** — Centralized CSS variables for colors, typography, spacing, and shadows
+- **Custom Dropdowns** — `<select>` elements auto-converted into styled comboboxes, pill selectors, and typeahead inputs
+- **Card Grids** — Clickable icon cards replacing dropdowns for better UX
+- **Page Transitions** — Full-screen wipe animations between auth pages
+- **Video Backgrounds** — Looping geometric animation on sign-in/sign-up panels
+- **Responsive Layout** — Mobile-first grids that collapse gracefully on small screens
 
 | Component | Variants |
-|-----------|----------|
+|---|---|
 | `pg-dropdown` | `default`, `combobox`, `pills`, `typeahead` |
 | Buttons | `btn-candy` (primary), `btn-outline` (secondary) |
 | Cards | `card-sticker` with pop shadows |
@@ -317,41 +309,33 @@ The frontend is powered by a custom design system featuring:
 
 ---
 
-## 👥 User Roles
+## Project Structure
 
-### 🎤 Instructor
-- Create workshops based on availability
-- Accept, reject, postpone, or delete workshop proposals
-- View monthly workshop statistics and upcoming sessions
-- Read and post comments on coordinator profiles
-
-### 📝 Coordinator
-- Browse and book workshops from instructor posts
-- Propose custom workshop dates based on their convenience
-- Track workshop status and history
-
-### 👤 Guest (Demo)
-- Pre-seeded coordinator account for instant exploration
-- Comes with sample workshops and a filled profile
-- Login: `guest` / `fossee@guest`
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|-------|-----------:|
-| **Backend** | Django 3.0, Python 3 |
-| **Database** | SQLite (dev), configurable for PostgreSQL |
-| **Frontend** | Vanilla HTML/CSS/JS with custom design system |
-| **Styling** | CSS Custom Properties (design tokens), no external CSS frameworks |
-| **Components** | Custom JS dropdown library (`pg-dropdown.js`) |
-| **Analytics** | Pandas for data processing |
-| **Config** | python-decouple for environment management |
+```
+workshop_booking/
+├── workshop_app/           # Core application
+│   ├── models.py           # Profiles, workshops, comments, testimonials
+│   ├── views.py            # View controllers
+│   ├── forms.py            # Registration, login, workshop forms
+│   ├── send_mails.py       # Email notification logic
+│   ├── reminder_script.py  # Workshop reminder automation
+│   ├── management/commands/seed_guest.py
+│   ├── templates/          # All HTML templates
+│   └── static/             # CSS, JS, video assets
+├── statistics_app/         # Charts, maps, analytics
+├── cms/                    # Content management
+├── teams/                  # Team management
+├── workshop_portal/        # Django project config (settings, urls, wsgi)
+├── docs/                   # Documentation
+├── local_settings.py       # Email credentials (not committed)
+├── .sampleenv              # Sample environment variables
+├── requirements.txt
+└── manage.py
+```
 
 ---
 
-## 🧪 Running Tests
+## Running Tests
 
 ```bash
 # Run all tests
@@ -360,30 +344,28 @@ python manage.py test
 # Run with coverage
 coverage run manage.py test
 coverage report
-coverage html          # Generates htmlcov/ directory
+coverage html    # Generates htmlcov/ directory
 ```
 
 ---
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 | Problem | Solution |
-|---------|----------|
+|---|---|
 | `ModuleNotFoundError: No module named 'decouple'` | Run `pip install -r requirements.txt` inside your venv |
-| `ImportError` from `local_settings` | Ensure `local_settings.py` exists in the project root with email variables |
-| Database errors after model changes | Run `python manage.py makemigrations && python manage.py migrate` |
-| `(venv)` not showing in terminal | Your virtual environment isn't active — re-run the activate command |
-| Port 8000 already in use | Use `python manage.py runserver 8080` to run on a different port |
-| Static files not loading | Run `python manage.py collectstatic` if serving with a production server |
+| `ImportError` from `local_settings` | Ensure `local_settings.py` exists in the project root |
+| Database errors after model changes | Run `makemigrations` then `migrate` |
+| `(venv)` not showing in terminal | Virtual environment isn't active — re-run the activate command |
+| Port 8000 already in use | Use `python manage.py runserver 8080` |
+| Static files not loading | Run `python manage.py collectstatic` |
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the **GNU General Public License v3.0** — see the [LICENSE](LICENSE) file for details.
+Licensed under the **GNU General Public License v3.0** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-<p align="center">
-  <sub>Built with ❤️ by <strong>FOSSEE, IIT Bombay</strong></sub>
-</p>
+Built with ❤️ by FOSSEE, IIT Bombay
