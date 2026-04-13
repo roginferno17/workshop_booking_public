@@ -375,4 +375,3 @@ Licensed under the **GNU General Public License v3.0** — see the [LICENSE](LIC
 
 ---
 
-Built with ❤️ by FOSSEE, IIT Bombay
